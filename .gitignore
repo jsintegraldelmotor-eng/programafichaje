@@ -1,0 +1,16 @@
+node_modules/
+dist/
+*.log
+.env
+.env.*
+!.env.ejemplo
+
+# Base de datos y copias: NUNCA al repositorio (datos personales)
+*.db
+*.db-wal
+*.db-shm
+/datos/
+/copias/
+/informes/
+
+.DS_Store
