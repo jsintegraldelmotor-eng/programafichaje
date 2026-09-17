@@ -1,0 +1,13 @@
+{
+  "name": "fichalba",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Fichaje de entrada en la tablet del taller",
+  "type": "module",
+  "engines": { "node": ">=22.5" },
+  "scripts": {
+    "start": "node --no-warnings src/servidor.js",
+    "trabajador": "node --no-warnings scripts/trabajador.js",
+    "test": "node --no-warnings --test"
+  }
+}

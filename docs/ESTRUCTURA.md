@@ -1,5 +1,10 @@
 # Estructura del proyecto — fase 1 (jornada)
 
+> **Nota (17/09/2026):** este documento describe la versión **completa** del registro de
+> jornada, que está aparcada. Lo que hay construido y funcionando hoy es la versión pequeña
+> de la tablet — ver el [README](../README.md). Esto se mantiene como el sitio al que volver
+> cuando toque añadir salidas, correcciones y mensual en PDF.
+
 Propuesta para revisar. El *porqué* de fondo está en `PROYECTO-FICHAJES.md`; el modelo de
 datos, en `MODELO-DATOS.md`.
 
@@ -66,7 +71,7 @@ fichalba/
 │
 ├── db/
 │   ├── migraciones/
-│   │   └── 001_inicial.sql       esquema de la fase 1
+│   │   └── 001_inicial.sql       esquema de la fase 1 (hoy en docs/referencia/)
 │   └── semillas/                 datos de prueba para desarrollo
 │
 ├── src/

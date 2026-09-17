@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Administración — fichalba</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="/estilos.css">
+<link rel="stylesheet" href="/admin/admin.css">
+</head>
+<body class="admin">
+
+<section id="entrada" class="caja-centro">
+  <h1>Administración</h1>
+  <p class="tenue">PIN de administrador</p>
+  <input id="pin-admin" type="password" inputmode="numeric" autocomplete="off" maxlength="8">
+  <button id="btn-entrar" class="principal">Entrar</button>
+  <p id="error-entrada" class="error"></p>
+</section>
+
+<main id="panel" class="oculto">
+  <header class="cabecera-admin">
+    <h1>fichalba · administración</h1>
+    <div>
+      <a href="/" class="boton-plano">Ver la tablet</a>
+      <button id="btn-salir" class="boton-plano">Salir</button>
+    </div>
+  </header>
+
+  <section class="bloque">
+    <div class="titulo-bloque">
+      <h2>Fichajes del día</h2>
+      <input type="date" id="fecha-dia">
+    </div>
+    <table id="tabla-dia"><tbody></tbody></table>
+    <p id="vacio-dia" class="tenue oculto">Nadie ha fichado ese día.</p>
+  </section>
+
+  <section class="bloque">
+    <h2>Descargar</h2>
+    <div class="fila">
+      <label>Desde <input type="date" id="desde"></label>
+      <label>Hasta <input type="date" id="hasta"></label>
+      <button id="btn-csv" class="principal">Descargar CSV</button>
+    </div>
+    <p class="tenue">Se abre directamente en Excel o en Numbers.</p>
+  </section>
+
+  <section class="bloque">
+    <h2>Trabajadores</h2>
+    <table id="tabla-trabajadores"><tbody></tbody></table>
+    <div class="fila">
+      <input id="nuevo-nombre" placeholder="Nombre y apellido">
+      <input id="nuevo-pin" placeholder="PIN (4 cifras)" inputmode="numeric" maxlength="4">
+      <button id="btn-alta" class="principal">Dar de alta</button>
+    </div>
+  </section>
+
+  <section class="bloque">
+    <h2>Cambiar el PIN de administrador</h2>
+    <div class="fila">
+      <input id="pin-nuevo-admin" placeholder="Nuevo PIN (4-8 cifras)" inputmode="numeric" maxlength="8">
+      <button id="btn-pin-admin" class="boton-plano">Guardar</button>
+    </div>
+  </section>
+
+  <p id="mensaje" class="mensaje"></p>
+</main>
+
+<script src="/admin/admin.js"></script>
+</body>
+</html>

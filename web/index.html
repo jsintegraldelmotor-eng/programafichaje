@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Fichaje — JS Integral del Motor</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#11151c">
+<link rel="stylesheet" href="/estilos.css">
+</head>
+<body>
+
+<!-- ------------------------------------------------ pantalla 1: la lista -->
+<section id="pantalla-lista" class="pantalla">
+  <header class="barra">
+    <div>
+      <div class="fecha" id="fecha">—</div>
+      <div class="sub" id="resumen">—</div>
+    </div>
+    <div class="reloj" id="reloj">--:--</div>
+  </header>
+
+  <div class="rejilla" id="rejilla"></div>
+
+  <footer class="pie">
+    <span id="aviso-red" class="aviso oculto"></span>
+    <a class="enlace-admin" href="/admin" title="Administración">⚙</a>
+  </footer>
+</section>
+
+<!-- --------------------------------------------------- pantalla 2: el PIN -->
+<section id="pantalla-pin" class="pantalla oculto">
+  <div class="pin-caja">
+    <div class="pin-nombre" id="pin-nombre">—</div>
+    <div class="pin-instruccion" id="pin-instruccion">Marca tu PIN</div>
+    <div class="puntos" id="puntos"><i></i><i></i><i></i><i></i></div>
+    <div class="pin-error" id="pin-error">&nbsp;</div>
+    <div class="teclado" id="teclado">
+      <button data-t="1">1</button><button data-t="2">2</button><button data-t="3">3</button>
+      <button data-t="4">4</button><button data-t="5">5</button><button data-t="6">6</button>
+      <button data-t="7">7</button><button data-t="8">8</button><button data-t="9">9</button>
+      <button class="secundaria" data-t="cancelar">Cancelar</button>
+      <button data-t="0">0</button>
+      <button class="secundaria" data-t="borrar">⌫</button>
+    </div>
+  </div>
+</section>
+
+<!-- ------------------------------------------- pantalla 3: la confirmación -->
+<section id="pantalla-ok" class="pantalla oculto">
+  <div class="ok-caja">
+    <div class="ok-marca">✓</div>
+    <div class="ok-saludo" id="ok-saludo">—</div>
+    <div class="ok-hora" id="ok-hora">--:--</div>
+    <div class="ok-nota" id="ok-nota"></div>
+  </div>
+</section>
+
+<script src="/app.js"></script>
+</body>
+</html>

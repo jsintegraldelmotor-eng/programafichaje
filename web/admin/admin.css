@@ -1,0 +1,53 @@
+/* La administración la usa una persona en un escritorio: aquí prima la
+   densidad de información, no el botón gigante. */
+
+body.admin { overflow: auto; height: auto; padding: 0; }
+.admin h1 { font-size: 1.4rem; margin: 0; }
+.admin h2 { font-size: 1.1rem; margin: 0 0 12px; color: var(--texto); }
+.tenue { color: var(--tenue); font-size: .9rem; }
+.error { color: var(--rojo); min-height: 1.4em; }
+.oculto { display: none !important; }
+
+.caja-centro {
+  max-width: 320px; margin: 15vh auto; padding: 28px;
+  background: var(--tarjeta); border: 1px solid var(--borde); border-radius: 16px;
+  text-align: center;
+}
+
+main { max-width: 900px; margin: 0 auto; padding: 24px 20px 60px; }
+
+.cabecera-admin {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; flex-wrap: wrap; margin-bottom: 24px;
+  padding-bottom: 16px; border-bottom: 1px solid var(--borde);
+}
+
+.bloque {
+  background: var(--tarjeta); border: 1px solid var(--borde);
+  border-radius: 14px; padding: 20px; margin-bottom: 18px;
+}
+.titulo-bloque { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.fila { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 12px; }
+.fila label { color: var(--tenue); font-size: .9rem; display: flex; gap: 6px; align-items: center; }
+
+input, button, select {
+  font-family: inherit; font-size: 1rem;
+  padding: 10px 12px; border-radius: 10px;
+  border: 1px solid var(--borde); background: var(--fondo); color: var(--texto);
+}
+input[type=date] { color-scheme: dark; }
+button { cursor: pointer; }
+.principal { background: var(--verde); border-color: var(--verde); color: #08240f; font-weight: 650; }
+.boton-plano { background: transparent; color: var(--tenue); text-decoration: none; display: inline-block; }
+.peligro { color: var(--rojo); border-color: #5c2b2b; }
+
+table { width: 100%; border-collapse: collapse; margin-top: 12px; }
+td, th { padding: 10px 8px; border-bottom: 1px solid var(--borde); text-align: left; vertical-align: middle; }
+td.hora { font-variant-numeric: tabular-nums; font-size: 1.05rem; width: 80px; }
+td.acciones { text-align: right; white-space: nowrap; }
+td.acciones button { padding: 6px 10px; font-size: .85rem; }
+tr.anulado td { color: var(--tenue); text-decoration: line-through; }
+tr.anulado td.motivo { text-decoration: none; font-size: .85rem; }
+tr.inactivo td { opacity: .5; }
+
+.mensaje { position: sticky; bottom: 12px; text-align: center; color: var(--verde); min-height: 1.4em; }

@@ -1,6 +1,11 @@
 # Modelo de datos — fase 1 (jornada)
 
-Esquema ejecutable: [`db/migraciones/001_inicial.sql`](../db/migraciones/001_inicial.sql).
+> **Nota (17/09/2026):** este documento describe la versión **completa** del registro de
+> jornada, que está aparcada. Lo que hay construido y funcionando hoy es la versión pequeña
+> de la tablet — ver el [README](../README.md). Esto se mantiene como el sitio al que volver
+> cuando toque añadir salidas, correcciones y mensual en PDF.
+
+Esquema ejecutable: [`docs/referencia/esquema-completo.sql`](referencia/esquema-completo.sql).
 Este documento explica **por qué** es así y cuáles son las reglas que el código debe respetar.
 
 ---
