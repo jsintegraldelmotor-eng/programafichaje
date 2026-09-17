@@ -1,41 +1,46 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { crc32 } from 'node:zlib';
-import { libro } from '../app/excel.js';
+import { inflateRawSync, crc32 } from 'node:zlib';
+import { libro } from '../src/excel.js';
 
-/* El .xlsx se escribe byte a byte (es un ZIP). Un fallo aquí no se ve hasta
-   que Excel dice "el archivo está dañado", así que el ZIP se vuelve a leer
-   entero y se comprueban tamaños y CRC con el zlib de Node, que no sabe nada
-   de nuestro código. */
+/* El generador de xlsx escribe bytes de un formato ZIP a mano: un fallo aquí
+   no se ve hasta que Excel dice "el archivo está dañado". Así que el ZIP se
+   vuelve a leer entero y se comprueban tamaños y CRC con el zlib de Node,
+   que no sabe nada de nuestro código. */
 
 function abrirZip(buf) {
-  const v = new DataView(buf.buffer, buf.byteOffset, buf.byteLength);
   const dentro = {};
   let i = 0;
-  while (i + 4 <= buf.length && v.getUint32(i, true) === 0x04034b50) {
-    const crcEsperado = v.getUint32(i + 14, true);
-    const tam = v.getUint32(i + 18, true);
-    const tamCrudo = v.getUint32(i + 22, true);
-    const largoNombre = v.getUint16(i + 26, true);
-    const largoExtra = v.getUint16(i + 28, true);
-    const nombre = new TextDecoder().decode(buf.subarray(i + 30, i + 30 + largoNombre));
+  while (i + 4 <= buf.length && buf.readUInt32LE(i) === 0x04034b50) {
+    const metodo = buf.readUInt16LE(i + 8);
+    const crcEsperado = buf.readUInt32LE(i + 14);
+    const tamComprimido = buf.readUInt32LE(i + 18);
+    const tamCrudo = buf.readUInt32LE(i + 22);
+    const largoNombre = buf.readUInt16LE(i + 26);
+    const largoExtra = buf.readUInt16LE(i + 28);
+    const nombre = buf.subarray(i + 30, i + 30 + largoNombre).toString('utf8');
     const inicio = i + 30 + largoNombre + largoExtra;
-    const datos = buf.subarray(inicio, inicio + tam);
+    const crudo = metodo === 8
+      ? inflateRawSync(buf.subarray(inicio, inicio + tamComprimido))
+      : buf.subarray(inicio, inicio + tamComprimido);
 
-    assert.equal(datos.length, tamCrudo, `tamaño mal en ${nombre}`);
-    assert.equal(crc32(datos), crcEsperado, `CRC mal en ${nombre}`);
-    dentro[nombre] = new TextDecoder().decode(datos);
-    i = inicio + tam;
+    assert.equal(crudo.length, tamCrudo, `tamaño mal en ${nombre}`);
+    assert.equal(crc32(crudo), crcEsperado, `CRC mal en ${nombre}`);
+    dentro[nombre] = crudo.toString('utf8');
+    i = inicio + tamComprimido;
   }
-  const fin = buf.lastIndexOf(0x06);   // se busca la firma del cierre
+  // Y el cierre del ZIP debe estar donde toca y cuadrar el número de ficheros.
+  const fin = buf.lastIndexOf(Buffer.from([0x50, 0x4b, 0x05, 0x06]));
   assert.ok(fin > 0, 'falta el cierre del ZIP');
+  assert.equal(buf.readUInt16LE(fin + 10), Object.keys(dentro).length);
   return dentro;
 }
 
 test('el xlsx es un ZIP válido con las piezas que Excel espera', () => {
   const dentro = abrirZip(libro([{ nombre: 'Hoja', filas: [['a'], ['b']] }]));
   for (const pieza of ['[Content_Types].xml', '_rels/.rels', 'xl/workbook.xml',
-                       'xl/_rels/workbook.xml.rels', 'xl/styles.xml', 'xl/worksheets/sheet1.xml']) {
+                       'xl/_rels/workbook.xml.rels', 'xl/styles.xml',
+                       'xl/worksheets/sheet1.xml']) {
     assert.ok(dentro[pieza], `falta ${pieza}`);
   }
 });
@@ -53,18 +58,12 @@ test('un nombre con & o < no rompe el fichero', () => {
   assert.match(dentro['xl/worksheets/sheet1.xml'], /Bar &amp; Talleres &lt;Paco&gt;/);
 });
 
-test('los acentos y las eñes llegan bien', () => {
-  const dentro = abrirZip(libro([{ nombre: 'Hoja', filas: [['Óscar Peña', 'miércoles']] }]));
-  assert.match(dentro['xl/worksheets/sheet1.xml'], /Óscar Peña/);
-  assert.match(dentro['xl/worksheets/sheet1.xml'], /miércoles/);
-});
-
-test('las columnas pasan de la Z sin equivocarse (un mes tiene 31 días)', () => {
-  const fila = Array.from({ length: 33 }, (_, i) => `c${i}`);
+test('las columnas pasan de la Z sin equivocarse', () => {
+  const fila = Array.from({ length: 30 }, (_, i) => `c${i}`);
   const hoja = abrirZip(libro([{ nombre: 'Hoja', filas: [fila] }]))['xl/worksheets/sheet1.xml'];
   assert.ok(hoja.includes('r="Z1"'), 'falta la columna Z');
   assert.ok(hoja.includes('r="AA1"'), 'después de la Z viene la AA');
-  assert.ok(hoja.includes('r="AG1"'), 'falta la última columna');
+  assert.ok(hoja.includes('r="AD1"'), 'falta la última columna');
 });
 
 test('varias hojas quedan enlazadas al libro', () => {

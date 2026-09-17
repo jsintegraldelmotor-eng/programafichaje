@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Fichaje — JS Integral del Motor</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#11151c">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="iconos/icono-192.png">
+<link rel="apple-touch-icon" href="iconos/icono-192.png">
+<link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+<!-- --------------------------------------------- primer arranque (vacío) -->
+<section id="pantalla-config" class="pantalla oculto">
+  <div class="caja-config">
+    <h1>Fichaje del taller</h1>
+    <p class="tenue">Primera vez. Esto se hace una sola vez y ya no vuelve a salir.</p>
+
+    <label class="campo">
+      <span>Nombres, uno por línea</span>
+      <textarea id="nombres" rows="8" spellcheck="false"></textarea>
+    </label>
+
+    <label class="campo">
+      <span>Tu PIN de jefe (de 4 a 8 cifras)</span>
+      <input id="pin-jefe" inputmode="numeric" maxlength="8" autocomplete="off">
+    </label>
+
+    <p id="error-config" class="error"></p>
+    <button id="btn-crear" class="principal grande">Crear</button>
+  </div>
+</section>
+
+<!-- ------------------------------------------- los PIN, una sola vez ---- -->
+<section id="pantalla-pines" class="pantalla oculto">
+  <div class="caja-config">
+    <h1>Apunta estos PIN</h1>
+    <p class="tenue">No se vuelven a enseñar. Dale el suyo a cada uno.</p>
+    <table id="tabla-pines" class="pines"></table>
+    <button id="btn-pines-listo" class="principal grande">Ya los tengo apuntados</button>
+  </div>
+</section>
+
+<!-- ---------------------------------------------------- la lista ------- -->
+<section id="pantalla-lista" class="pantalla oculto">
+  <header class="barra">
+    <div>
+      <div class="fecha" id="fecha">—</div>
+      <div class="sub" id="resumen">—</div>
+    </div>
+    <div class="reloj" id="reloj">--:--</div>
+  </header>
+  <div class="rejilla" id="rejilla"></div>
+  <footer class="pie">
+    <button class="enlace-admin" id="btn-admin" title="Jefe">⚙</button>
+  </footer>
+</section>
+
+<!-- ------------------------------------------------------- el PIN ------ -->
+<section id="pantalla-pin" class="pantalla oculto">
+  <div class="pin-caja">
+    <div class="pin-nombre" id="pin-nombre">—</div>
+    <div class="pin-instruccion" id="pin-instruccion">Marca tu PIN</div>
+    <div class="puntos" id="puntos"><i></i><i></i><i></i><i></i></div>
+    <div class="pin-error" id="pin-error">&nbsp;</div>
+    <div class="teclado" id="teclado">
+      <button data-t="1">1</button><button data-t="2">2</button><button data-t="3">3</button>
+      <button data-t="4">4</button><button data-t="5">5</button><button data-t="6">6</button>
+      <button data-t="7">7</button><button data-t="8">8</button><button data-t="9">9</button>
+      <button class="secundaria" data-t="cancelar">Cancelar</button>
+      <button data-t="0">0</button>
+      <button class="secundaria" data-t="borrar">⌫</button>
+    </div>
+  </div>
+</section>
+
+<!-- ------------------------------------------------- confirmación ------ -->
+<section id="pantalla-ok" class="pantalla oculto">
+  <div class="ok-caja">
+    <div class="ok-marca">✓</div>
+    <div class="ok-saludo" id="ok-saludo">—</div>
+    <div class="ok-hora" id="ok-hora">--:--</div>
+    <div class="ok-nota" id="ok-nota"></div>
+  </div>
+</section>
+
+<!-- ------------------------------------------------------- el jefe ----- -->
+<section id="pantalla-jefe" class="pantalla jefe oculto">
+  <header class="barra-jefe">
+    <h1>Fichajes</h1>
+    <button id="btn-cerrar-jefe" class="boton-plano">Volver a fichar</button>
+  </header>
+
+  <div class="jefe-cuerpo">
+    <section class="bloque">
+      <h2>Descargar el Excel</h2>
+      <div class="fila">
+        <input type="month" id="mes">
+        <button id="btn-excel" class="principal">Descargar ese mes</button>
+        <button id="btn-excel-todo" class="boton-plano">o todo el histórico</button>
+      </div>
+      <p class="tenue">
+        Dos hojas: el mes de un vistazo (cada uno y su hora de entrada, día a día)
+        y el detalle de todos los fichajes.
+      </p>
+    </section>
+
+    <section class="bloque">
+      <div class="titulo-bloque">
+        <h2>Día</h2>
+        <input type="date" id="fecha-dia">
+      </div>
+      <table id="tabla-dia"><tbody></tbody></table>
+      <p id="vacio-dia" class="tenue oculto">Nadie fichó ese día.</p>
+    </section>
+
+    <section class="bloque">
+      <h2>Trabajadores</h2>
+      <table id="tabla-trabajadores"><tbody></tbody></table>
+      <div class="fila">
+        <input id="nuevo-nombre" placeholder="Nombre">
+        <button id="btn-alta" class="principal">Añadir</button>
+      </div>
+      <p class="tenue">Al añadir a alguien, la aplicación le da un PIN y te lo enseña.</p>
+    </section>
+
+    <section class="bloque">
+      <h2>Tu PIN de jefe</h2>
+      <div class="fila">
+        <input id="pin-jefe-nuevo" placeholder="Nuevo PIN (4-8 cifras)" inputmode="numeric" maxlength="8">
+        <button id="btn-pin-jefe" class="boton-plano">Cambiar</button>
+      </div>
+    </section>
+
+    <p id="mensaje" class="mensaje"></p>
+  </div>
+</section>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>

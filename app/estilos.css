@@ -1,0 +1,202 @@
+/* fichalba — pensado para una tablet colgada en la pared del taller:
+   letra grande, botones enormes, poco brillo y nada que se pueda tocar sin querer. */
+
+:root {
+  --fondo:      #11151c;
+  --tarjeta:    #1b2230;
+  --tarjeta-2:  #232c3d;
+  --borde:      #2e3950;
+  --texto:      #f1f5f9;
+  --tenue:      #8b9bb4;
+  --verde:      #22c55e;
+  --verde-hondo:#0f3d24;
+  --rojo:       #f87171;
+}
+
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+html, body {
+  margin: 0; height: 100%; overflow: hidden;
+  background: var(--fondo); color: var(--texto);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  -webkit-user-select: none; user-select: none;
+  touch-action: manipulation;
+}
+
+.pantalla {
+  position: fixed; inset: 0;
+  display: flex; flex-direction: column;
+  padding: max(20px, env(safe-area-inset-top)) 20px max(16px, env(safe-area-inset-bottom));
+}
+.oculto { display: none !important; }
+
+/* ------------------------------------------------------------- cabecera -- */
+
+.barra {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  gap: 16px; margin-bottom: 18px;
+}
+.fecha { font-size: 1.5rem; font-weight: 650; }
+.sub   { font-size: 1rem; color: var(--tenue); margin-top: 4px; }
+.reloj {
+  /* Crece con la pantalla: se tiene que leer desde la puerta del taller. */
+  font-size: clamp(2.2rem, 5.5vmin, 5rem); font-weight: 300; line-height: 1;
+  font-variant-numeric: tabular-nums; letter-spacing: -0.02em;
+}
+
+/* --------------------------------------------------------------- rejilla -- */
+
+.rejilla {
+  flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch;
+  display: grid; gap: 16px;
+  /* Tres por fila como mucho: en una tablet de 1920 px, seis nombres en una
+     sola tira quedan ridículos. Con esto salen fichas grandes de tocar. */
+  width: 100%; max-width: 1180px; margin-inline: auto;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+  align-content: center;
+}
+
+.ficha {
+  min-height: 150px; padding: 22px 26px;
+  display: flex; flex-direction: column; justify-content: center; gap: 8px;
+  background: var(--tarjeta); border: 2px solid var(--borde); border-radius: 20px;
+  color: var(--texto); font-size: 1.8rem; font-weight: 600; text-align: left;
+  cursor: pointer; transition: transform .08s ease, background .15s ease;
+}
+.ficha:active { transform: scale(.97); background: var(--tarjeta-2); }
+
+.ficha.fichado {
+  background: var(--verde-hondo); border-color: var(--verde);
+}
+.ficha .estado { font-size: 1.15rem; font-weight: 500; color: var(--tenue); }
+.ficha.fichado .estado { color: var(--verde); }
+
+/* ------------------------------------------------------------------- pie -- */
+
+.pie { display: flex; align-items: center; justify-content: space-between; padding-top: 12px; }
+.aviso { color: var(--rojo); font-size: .95rem; }
+.enlace-admin {
+  margin-left: auto; color: #3d4a63; text-decoration: none;
+  font-size: 1.3rem; padding: 6px 10px;
+}
+
+/* ------------------------------------------------------------------- PIN -- */
+
+#pantalla-pin { align-items: center; justify-content: center; }
+.pin-caja { width: min(420px, 100%); text-align: center; }
+.pin-nombre { font-size: clamp(1.8rem, 4vmin, 3rem); font-weight: 650; }
+.pin-instruccion { color: var(--tenue); margin-top: 6px; font-size: 1.05rem; }
+
+.puntos { display: flex; gap: 18px; justify-content: center; margin: 26px 0 8px; }
+.puntos i {
+  width: 18px; height: 18px; border-radius: 50%;
+  border: 2px solid var(--borde); background: transparent;
+  transition: background .1s ease, border-color .1s ease;
+}
+.puntos i.lleno { background: var(--texto); border-color: var(--texto); }
+.puntos.mal i { border-color: var(--rojo); background: var(--rojo); animation: tiembla .4s; }
+@keyframes tiembla {
+  20%, 60% { transform: translateX(-7px); } 40%, 80% { transform: translateX(7px); }
+}
+
+.pin-error { color: var(--rojo); min-height: 1.5em; font-size: 1rem; margin-bottom: 14px; }
+
+.teclado { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.teclado button {
+  height: 78px; border-radius: 16px; border: 2px solid var(--borde);
+  background: var(--tarjeta); color: var(--texto);
+  font-size: 2rem; font-weight: 500; font-family: inherit; cursor: pointer;
+}
+.teclado button:active { background: var(--tarjeta-2); transform: scale(.96); }
+.teclado .secundaria { font-size: 1.1rem; color: var(--tenue); background: transparent; }
+
+/* -------------------------------------------------------- confirmación -- */
+
+#pantalla-ok { align-items: center; justify-content: center; background: var(--verde-hondo); }
+.ok-caja { text-align: center; }
+.ok-marca {
+  font-size: clamp(5rem, 14vmin, 11rem); line-height: 1; color: var(--verde);
+  animation: aparece .3s ease-out;
+}
+@keyframes aparece { from { transform: scale(.5); opacity: 0; } }
+.ok-saludo { font-size: clamp(2rem, 5vmin, 4rem); font-weight: 650; margin-top: 10px; }
+.ok-hora   { font-size: clamp(3.5rem, 10vmin, 8rem); font-weight: 300; font-variant-numeric: tabular-nums; margin-top: 6px; }
+.ok-nota   { color: #a7f3c4; margin-top: 10px; font-size: clamp(1rem, 2vmin, 1.5rem); min-height: 1.4em; }
+
+@media (max-width: 560px) {
+  .rejilla { grid-template-columns: 1fr; }
+  .ficha { min-height: 92px; }
+}
+
+/* ------------------------------------------ primer arranque y los PIN -- */
+
+#pantalla-config, #pantalla-pines { align-items: center; justify-content: center; overflow-y: auto; }
+.caja-config {
+  width: min(520px, 100%); max-height: 100%; overflow-y: auto;
+  background: var(--tarjeta); border: 1px solid var(--borde);
+  border-radius: 20px; padding: 28px;
+}
+.caja-config h1 { font-size: 1.6rem; margin: 0 0 6px; }
+.campo { display: block; margin: 20px 0; }
+.campo > span { display: block; color: var(--tenue); margin-bottom: 8px; font-size: .95rem; }
+.campo textarea, .campo input {
+  width: 100%; font-family: inherit; font-size: 1.15rem; padding: 12px 14px;
+  background: var(--fondo); color: var(--texto);
+  border: 1px solid var(--borde); border-radius: 12px;
+}
+.campo textarea { resize: vertical; line-height: 1.6; }
+.grande { width: 100%; padding: 18px; font-size: 1.2rem; border-radius: 14px; }
+
+.pines { width: 100%; border-collapse: collapse; margin: 18px 0; }
+.pines td { padding: 12px 8px; border-bottom: 1px solid var(--borde); font-size: 1.25rem; }
+.pines td:last-child {
+  text-align: right; font-variant-numeric: tabular-nums;
+  letter-spacing: .15em; color: var(--verde); font-weight: 650;
+}
+
+/* ------------------------------------------------ pantalla del jefe --- */
+
+.pantalla.jefe { overflow-y: auto; align-items: stretch; }
+.barra-jefe {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 12px; padding-bottom: 14px; margin-bottom: 18px;
+  border-bottom: 1px solid var(--borde);
+}
+.barra-jefe h1 { font-size: 1.3rem; margin: 0; }
+.jefe-cuerpo { max-width: 780px; width: 100%; margin: 0 auto; padding-bottom: 40px; }
+.jefe h2 { font-size: 1.05rem; margin: 0 0 12px; }
+.tenue { color: var(--tenue); font-size: .9rem; }
+.error { color: var(--rojo); min-height: 1.4em; }
+
+.bloque {
+  background: var(--tarjeta); border: 1px solid var(--borde);
+  border-radius: 14px; padding: 18px; margin-bottom: 16px;
+}
+.titulo-bloque { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+.fila { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 4px; }
+
+.jefe input, .jefe button {
+  font-family: inherit; font-size: 1rem; padding: 11px 14px; border-radius: 10px;
+  border: 1px solid var(--borde); background: var(--fondo); color: var(--texto);
+}
+.jefe input[type=date], .jefe input[type=month] { color-scheme: dark; }
+.jefe button { cursor: pointer; }
+.principal { background: var(--verde); border-color: var(--verde); color: #08240f; font-weight: 650; }
+.boton-plano { background: transparent; color: var(--tenue); }
+.peligro { color: var(--rojo); border-color: #5c2b2b; }
+
+.jefe table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+.jefe td { padding: 10px 6px; border-bottom: 1px solid var(--borde); vertical-align: middle; }
+.jefe td.hora { font-variant-numeric: tabular-nums; width: 70px; }
+.jefe td.acciones { text-align: right; white-space: nowrap; }
+.jefe td.acciones button { padding: 7px 11px; font-size: .85rem; }
+tr.anulado td { color: var(--tenue); text-decoration: line-through; }
+tr.anulado td.motivo { text-decoration: none; font-size: .85rem; }
+tr.inactivo td { opacity: .5; }
+
+.mensaje { position: sticky; bottom: 10px; text-align: center; color: var(--verde); min-height: 1.4em; }
+
+.enlace-admin {
+  margin-left: auto; background: none; border: none; cursor: pointer;
+  color: #3d4a63; font-size: 1.4rem; padding: 8px 12px;
+}

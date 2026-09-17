@@ -1,15 +1,13 @@
 {
   "name": "fichalba",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "private": true,
-  "description": "Fichaje de entrada en la tablet del taller",
+  "description": "Fichaje de entrada del taller: una aplicación web que vive dentro de la tablet",
   "type": "module",
   "engines": { "node": ">=22.5" },
   "scripts": {
-    "start": "node --no-warnings src/servidor.js",
-    "primer-arranque": "node --no-warnings scripts/primer-arranque.js",
-    "trabajador": "node --no-warnings scripts/trabajador.js",
-    "copia": "node --no-warnings scripts/copia.js",
-    "test": "node --no-warnings --test"
+    "test": "node --no-warnings --test tests/*.test.js",
+    "app": "node --no-warnings servidor/scripts/servir-app.js",
+    "test-servidor": "node --no-warnings --test servidor/tests/*.test.js"
   }
 }

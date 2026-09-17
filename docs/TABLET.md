@@ -47,8 +47,8 @@ Dos avisos honestos:
 
 - **Al reiniciar la tablet, la fijación se pierde.** Hay que repetir los pasos 6-8. Son diez
   segundos, pero conviene saberlo: si un día alguien la reinicia, revísala.
-- La aplicación de fichar **no guarda nada en la tablet** (ni nombres, ni PIN, ni fichajes),
-  así que aunque alguien la suelte, por ahí no se llega a ningún dato.
+- Si alguien suelta la aplicación, lo único que puede hacer con ella es fichar: para ver los
+  fichajes o tocar nada hace falta tu PIN de jefe.
 
 ### Nivel 2 — Un usuario aparte (si lo interno es serio)
 
@@ -62,6 +62,10 @@ estén escondidos, es que para ese usuario no existen. Dejas la tablet encendida
 usuario, y para volver al tuyo hace falta tu PIN o tu huella.
 
 Es media hora de faena y es la separación de verdad. Si el nivel 1 te vale, no lo necesitas.
+
+**Cuidado con una cosa:** si creas un usuario nuevo, la aplicación hay que instalarla *en ese
+usuario*, y los fichajes que se guarden ahí sólo se ven desde ahí. Decide en qué usuario va a
+vivir el fichaje **antes** de empezar a usarlo de verdad, no después.
 
 ### Nivel 3 — Modo quiosco de Samsung (Knox)
 
@@ -78,8 +82,8 @@ Queda apuntado por si algún día tienes cinco.
 - **La Tab Active5 puede funcionar enchufada sin batería** (mira en Ajustes → si aparece
   *Modo sin batería* / *No battery mode*). Si lo tiene, para una tablet que va a estar
   colgada y enchufada para siempre es justo lo que quieres: la batería no se hincha.
-- Es 5G: mientras el servidor esté en el ordenador del taller, **la tablet tiene que estar en
-  el wifi del taller**, no en datos móviles, o no llegará al servidor.
+- **El wifi sólo hace falta el primer día**, para abrir la página e instalarla. Después la
+  aplicación funciona sola: puedes apagar el wifi y los datos móviles y sigue fichando.
 
 ---
 
@@ -140,6 +144,6 @@ programa: lo resuelve mirar. Conviene tenerlo claro para no gastar dinero persig
 | Lo que te preocupaba | Cómo queda |
 |---|---|
 | Que vean lo interno de la tablet | **Fijar apps** con PIN para soltarla; si es serio, un usuario aparte |
-| Datos del fichaje en la tablet | Ninguno: nombres, PIN y fichajes están en el servidor, no en ella |
+| Los fichajes | Se guardan en la tablet. Descarga el Excel una vez al mes y guárdalo fuera |
 | Que se fichen unos a otros | PIN por persona + lista a la vista + bloqueo tras cinco fallos |
 | La huella para identificar | No sirve técnicamente, y además es terreno minado de RGPD |
