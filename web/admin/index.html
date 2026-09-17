@@ -38,11 +38,18 @@
   <section class="bloque">
     <h2>Descargar</h2>
     <div class="fila">
+      <label>Mes <input type="month" id="mes"></label>
+      <button id="btn-excel" class="principal">Descargar el mes en Excel</button>
+    </div>
+    <p class="tenue">
+      Dos hojas: <strong>el mes de un vistazo</strong> (cada trabajador y su hora de entrada,
+      día a día) y <strong>el detalle</strong> de todos los fichajes, con los anulados y su motivo.
+    </p>
+    <div class="fila">
       <label>Desde <input type="date" id="desde"></label>
       <label>Hasta <input type="date" id="hasta"></label>
-      <button id="btn-csv" class="principal">Descargar CSV</button>
+      <button id="btn-csv" class="boton-plano">o en CSV, por fechas sueltas</button>
     </div>
-    <p class="tenue">Se abre directamente en Excel o en Numbers.</p>
   </section>
 
   <section class="bloque">

@@ -39,7 +39,8 @@ html, body {
 .fecha { font-size: 1.5rem; font-weight: 650; }
 .sub   { font-size: 1rem; color: var(--tenue); margin-top: 4px; }
 .reloj {
-  font-size: 3.2rem; font-weight: 300; line-height: 1;
+  /* Crece con la pantalla: se tiene que leer desde la puerta del taller. */
+  font-size: clamp(2.2rem, 5.5vmin, 5rem); font-weight: 300; line-height: 1;
   font-variant-numeric: tabular-nums; letter-spacing: -0.02em;
 }
 
@@ -47,16 +48,19 @@ html, body {
 
 .rejilla {
   flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch;
-  display: grid; gap: 14px;
-  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  display: grid; gap: 16px;
+  /* Tres por fila como mucho: en una tablet de 1920 px, seis nombres en una
+     sola tira quedan ridículos. Con esto salen fichas grandes de tocar. */
+  width: 100%; max-width: 1180px; margin-inline: auto;
+  grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
   align-content: center;
 }
 
 .ficha {
-  min-height: 120px; padding: 18px 20px;
-  display: flex; flex-direction: column; justify-content: center; gap: 6px;
-  background: var(--tarjeta); border: 2px solid var(--borde); border-radius: 18px;
-  color: var(--texto); font-size: 1.45rem; font-weight: 600; text-align: left;
+  min-height: 150px; padding: 22px 26px;
+  display: flex; flex-direction: column; justify-content: center; gap: 8px;
+  background: var(--tarjeta); border: 2px solid var(--borde); border-radius: 20px;
+  color: var(--texto); font-size: 1.8rem; font-weight: 600; text-align: left;
   cursor: pointer; transition: transform .08s ease, background .15s ease;
 }
 .ficha:active { transform: scale(.97); background: var(--tarjeta-2); }
@@ -64,7 +68,7 @@ html, body {
 .ficha.fichado {
   background: var(--verde-hondo); border-color: var(--verde);
 }
-.ficha .estado { font-size: 1rem; font-weight: 500; color: var(--tenue); }
+.ficha .estado { font-size: 1.15rem; font-weight: 500; color: var(--tenue); }
 .ficha.fichado .estado { color: var(--verde); }
 
 /* ------------------------------------------------------------------- pie -- */
@@ -80,7 +84,7 @@ html, body {
 
 #pantalla-pin { align-items: center; justify-content: center; }
 .pin-caja { width: min(420px, 100%); text-align: center; }
-.pin-nombre { font-size: 2rem; font-weight: 650; }
+.pin-nombre { font-size: clamp(1.8rem, 4vmin, 3rem); font-weight: 650; }
 .pin-instruccion { color: var(--tenue); margin-top: 6px; font-size: 1.05rem; }
 
 .puntos { display: flex; gap: 18px; justify-content: center; margin: 26px 0 8px; }
@@ -111,16 +115,15 @@ html, body {
 #pantalla-ok { align-items: center; justify-content: center; background: var(--verde-hondo); }
 .ok-caja { text-align: center; }
 .ok-marca {
-  font-size: 5.5rem; line-height: 1; color: var(--verde);
+  font-size: clamp(5rem, 14vmin, 11rem); line-height: 1; color: var(--verde);
   animation: aparece .3s ease-out;
 }
 @keyframes aparece { from { transform: scale(.5); opacity: 0; } }
-.ok-saludo { font-size: 2.2rem; font-weight: 650; margin-top: 10px; }
-.ok-hora   { font-size: 4rem; font-weight: 300; font-variant-numeric: tabular-nums; margin-top: 6px; }
-.ok-nota   { color: #a7f3c4; margin-top: 10px; font-size: 1.05rem; min-height: 1.4em; }
+.ok-saludo { font-size: clamp(2rem, 5vmin, 4rem); font-weight: 650; margin-top: 10px; }
+.ok-hora   { font-size: clamp(3.5rem, 10vmin, 8rem); font-weight: 300; font-variant-numeric: tabular-nums; margin-top: 6px; }
+.ok-nota   { color: #a7f3c4; margin-top: 10px; font-size: clamp(1rem, 2vmin, 1.5rem); min-height: 1.4em; }
 
 @media (max-width: 560px) {
-  .reloj { font-size: 2.2rem; }
   .rejilla { grid-template-columns: 1fr; }
   .ficha { min-height: 92px; }
 }

@@ -4,6 +4,7 @@ import { readFile } from 'node:fs/promises';
 import { join, normalize, extname, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import * as bd from './db.js';
+import { libroDelMes } from './informe.js';
 
 const AQUI = dirname(fileURLToPath(import.meta.url));
 const WEB = join(AQUI, '..', 'web');
@@ -167,6 +168,21 @@ function admin(req, res, url, cuerpo) {
   if (ruta === '/dia' && req.method === 'GET') {
     const fecha = url.searchParams.get('fecha') || bd.local().fecha;
     return json(res, 200, { fecha, fichajes: bd.fichajesDelDia(fecha) });
+  }
+
+  if (ruta === '/exportar.xlsx' && req.method === 'GET') {
+    const mes = url.searchParams.get('mes') || bd.local().fecha.slice(0, 7);
+    const [anio, numeroMes] = mes.split('-').map(Number);
+    if (!anio || !numeroMes || numeroMes < 1 || numeroMes > 12) {
+      return json(res, 400, { error: 'Mes no válido.' });
+    }
+    const { nombre, datos } = libroDelMes(anio, numeroMes);
+    res.writeHead(200, {
+      'content-type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+      'content-disposition': `attachment; filename="${nombre}"`,
+      'content-length': datos.length,
+    });
+    return res.end(datos);
   }
 
   if (ruta === '/exportar.csv' && req.method === 'GET') {

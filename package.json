@@ -7,7 +7,9 @@
   "engines": { "node": ">=22.5" },
   "scripts": {
     "start": "node --no-warnings src/servidor.js",
+    "primer-arranque": "node --no-warnings scripts/primer-arranque.js",
     "trabajador": "node --no-warnings scripts/trabajador.js",
+    "copia": "node --no-warnings scripts/copia.js",
     "test": "node --no-warnings --test"
   }
 }

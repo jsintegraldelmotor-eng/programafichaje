@@ -93,6 +93,11 @@ async function cargarTrabajadores() {
     const acciones = fila.querySelector('.acciones');
 
     acciones.append(
+      boton('Renombrar', async () => {
+        const nombre = prompt('Nombre que se ve en la tablet:', t.nombre);
+        if (nombre == null || !nombre.trim()) return;
+        await accion({ accion: 'renombrar', id: t.id, nombre }, 'Renombrado');
+      }),
       boton('Cambiar PIN', async () => {
         const pin = prompt(`Nuevo PIN de 4 cifras para ${t.nombre}:`);
         if (pin == null) return;
@@ -135,6 +140,10 @@ $('btn-pin-admin').onclick = async () => {
   } catch (e) { aviso(e.message, true); }
 };
 
+$('btn-excel').onclick = () => {
+  location.href = `/api/admin/exportar.xlsx?mes=${$('mes').value}`;
+};
+
 $('btn-csv').onclick = () => {
   location.href = `/api/admin/exportar.csv?desde=${$('desde').value}&hasta=${$('hasta').value}`;
 };
@@ -146,6 +155,7 @@ $('btn-salir').onclick = async () => { await api('/api/admin/salir', {}); locati
 function arrancarPanel() {
   const hoy = new Date().toLocaleDateString('sv-SE');   // 'YYYY-MM-DD' en hora local
   $('fecha-dia').value = hoy;
+  $('mes').value = hoy.slice(0, 7);
   $('desde').value = hoy.slice(0, 8) + '01';
   $('hasta').value = hoy;
   $('fecha-dia').onchange = cargarDia;

@@ -16,22 +16,31 @@ Nada más.
 2. Tocas tu nombre → marcas tu PIN de 4 cifras → "Buenos días, Javier — 08:02".
 3. A los cuatro segundos vuelve sola a la lista.
 
-El jefe entra en `/admin` con su PIN y ve los fichajes del día, se descarga el mes en CSV
-y da de alta o de baja a la gente.
+El jefe entra en `/admin` con su PIN: ve los fichajes del día, se descarga el mes en Excel,
+da de alta o de baja a la gente y anula un fichaje equivocado dejando el motivo.
+
+![La pantalla de administración](docs/imagenes/admin.png)
 
 ## Ponerlo en marcha
 
 No hay dependencias que instalar: sólo hace falta **Node 22 o superior**.
 
 ```bash
-npm run trabajador -- admin 4821            # tu PIN de administrador
-npm run trabajador -- alta "Javier Sánchez" 1111
-npm run trabajador -- alta "Óscar Pereira"  2222
-npm start                                    # http://localhost:3000
+npm run primer-arranque    # da de alta a la plantilla y enseña los PIN UNA vez
+npm start                  # http://localhost:3000
 ```
 
-La base de datos es **un único fichero**, `datos/fichalba.db`. La copia de seguridad es
-copiar ese fichero.
+Para el día a día:
+
+```bash
+npm run trabajador -- alta "Nombre Apellido" 1234   # añadir a alguien
+npm run trabajador -- lista                          # ver quién hay
+npm run copia                                        # copia de seguridad, en caliente
+npm test                                             # las reglas que no se pueden romper
+```
+
+Los pasos completos —dónde poner el servidor, cómo conectar la tablet y qué contarle a la
+plantilla el primer día— están en **[docs/EMPEZAR.md](docs/EMPEZAR.md)**.
 
 | Variable | Para qué | Por defecto |
 |---|---|---|
@@ -41,9 +50,15 @@ copiar ese fichero.
 | `FICHALBA_RED` | Si se define, sólo se ficha desde esas IPs (`192.168.1.,88.12.34.56`) | sin restricción |
 | `FICHALBA_TRAS_PROXY` | `1` si hay un proxy delante (Caddy, nginx) | `0` |
 
-```bash
-npm test          # las reglas que no se pueden romper
-```
+## Dónde se guarda todo
+
+En **un solo fichero**: `datos/fichalba.db`. Ahí dentro están los trabajadores, los PIN
+(cifrados), todos los fichajes y las anulaciones con su motivo. Copiar ese fichero es la
+copia de seguridad completa. En la tablet no se queda nada.
+
+Para mirarlo cómodamente, `/admin` → **Descargar el mes en Excel**: un `.xlsx` con el mes de
+un vistazo (cada trabajador, cada día, su hora de entrada) y el detalle de todos los
+fichajes. El Excel es una foto para consultar y enviar; el original es siempre el `.db`.
 
 ## Las tres cosas que no se negocian
 
@@ -59,7 +74,8 @@ npm test          # las reglas que no se pueden romper
 
 | Documento | Qué contiene |
 |---|---|
-| [`docs/TABLET.md`](docs/TABLET.md) | **Dejar el iPad clavado en el fichaje** y **cómo evitar que se fichen unos a otros** (incluido por qué la huella no sirve para esto) |
+| [`docs/EMPEZAR.md`](docs/EMPEZAR.md) | **De cero a fichar el lunes**: dónde poner el servidor, la red, el primer día con la plantilla y la rutina |
+| [`docs/TABLET.md`](docs/TABLET.md) | La **Galaxy Tab Active5**: dejarla clavada en el fichaje (Fijar apps) y cómo evitar que se fichen unos a otros — incluido por qué la huella no sirve para esto |
 | [`docs/PROYECTO-FICHAJES.md`](docs/PROYECTO-FICHAJES.md) | El planteamiento completo: legalidad, RGPD, arquitectura |
 | [`docs/ESTRUCTURA.md`](docs/ESTRUCTURA.md) | El diseño de la versión completa |
 | [`docs/MODELO-DATOS.md`](docs/MODELO-DATOS.md) | El modelo de datos completo, con correcciones y cadena de integridad |
@@ -79,7 +95,8 @@ Lo que hay hoy, y lo que falta:
 - [x] Ver quién ha fichado y a qué hora
 - [x] Anular un fichaje equivocado sin borrar el original
 - [x] Alta y baja de trabajadores, cambio de PIN
-- [x] Descargar los fichajes en CSV
+- [x] Descargar el mes en **Excel** (y en CSV por fechas sueltas)
+- [x] Copia de seguridad en caliente, sin parar el programa
 - [ ] Fichar la salida  ← lo siguiente, cuando lo pidas
 - [ ] Resumen mensual en PDF por trabajador
 - [ ] Los tres documentos de RGPD (fase 0, con la gestoría)

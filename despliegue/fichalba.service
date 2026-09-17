@@ -1,0 +1,32 @@
+# Para que el programa arranque solo y se levante si se cae (Linux).
+#   sudo cp despliegue/fichalba.service /etc/systemd/system/
+#   sudo systemctl enable --now fichalba
+#
+# Ajusta User y WorkingDirectory a tu máquina.
+
+[Unit]
+Description=fichalba - registro de jornada del taller
+After=network.target
+
+[Service]
+Type=simple
+User=fichalba
+WorkingDirectory=/opt/fichalba
+ExecStart=/usr/bin/node --no-warnings src/servidor.js
+Restart=always
+RestartSec=5
+
+Environment=FICHALBA_PUERTO=3000
+Environment=FICHALBA_TZ=Europe/Madrid
+# Environment=FICHALBA_RED=192.168.1.
+# Environment=FICHALBA_TRAS_PROXY=1
+
+# La base de datos y poco más: el proceso no necesita tocar nada del sistema.
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/opt/fichalba/datos
+
+[Install]
+WantedBy=multi-user.target

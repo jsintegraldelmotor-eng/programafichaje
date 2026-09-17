@@ -66,9 +66,12 @@ export const trabajadorPorId = (id) =>
   db.prepare('SELECT * FROM trabajador WHERE id = ?').get(id);
 
 export function altaTrabajador(nombre, pin) {
+  // El orden de alta manda: la lista de la tablet sale como la escribió el jefe,
+  // no alfabética. Así cada uno encuentra siempre su nombre en el mismo sitio.
+  const ultimo = db.prepare('SELECT IFNULL(MAX(orden), 0) AS n FROM trabajador').get().n;
   const { lastInsertRowid } = db.prepare(
-    'INSERT INTO trabajador (nombre, pin_hash, creado_utc) VALUES (?, ?, ?)'
-  ).run(nombre.trim(), hashPin(pin), ahoraUtc());
+    'INSERT INTO trabajador (nombre, pin_hash, orden, creado_utc) VALUES (?, ?, ?, ?)'
+  ).run(nombre.trim(), hashPin(pin), ultimo + 1, ahoraUtc());
   return Number(lastInsertRowid);
 }
 
@@ -122,8 +125,8 @@ export const fichajesDelDia = (fecha) =>
 
 export const fichajesEntre = (desde, hasta) =>
   db.prepare(
-    `SELECT f.fecha_local, f.hora_local, t.nombre, f.tipo, f.instante_utc, f.origen,
-            a.motivo AS anulado_motivo
+    `SELECT f.fecha_local, f.hora_local, t.id AS trabajador_id, t.nombre, f.tipo,
+            f.instante_utc, f.origen, a.motivo AS anulado_motivo
        FROM fichaje f
        JOIN trabajador t ON t.id = f.trabajador_id
        LEFT JOIN anulacion a ON a.fichaje_id = f.id

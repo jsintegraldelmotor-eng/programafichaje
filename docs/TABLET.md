@@ -1,116 +1,134 @@
-# La tablet: dejarla clavada en el fichaje, y que nadie fiche por otro
+# La tablet: Samsung Galaxy Tab Active5 (SM-X306B)
 
-Dos preguntas, dos respuestas. La segunda tiene una parte que no te va a gustar.
+Cómo dejarla clavada en el fichaje para que nadie ande viendo lo que hay dentro, y qué se
+puede hacer de verdad contra que se fichen unos a otros.
+
+> **Ojo:** esto es Android, no iPad. La función que en Apple se llama *Acceso Guiado*, en
+> Samsung se llama **Fijar apps**. Los pasos de abajo son los de One UI (la capa de Samsung);
+> si algún nombre no te cuadra exactamente, busca "fijar" en el buscador de Ajustes.
 
 ---
 
-## 1. Que el iPad no tenga nada más (y nada sensible)
+## 1. Que no vean lo que hay en la tablet
 
-### Lo primero: la aplicación no guarda nada en el iPad
+Tienes cosas internas del taller en ella, así que el trabajador tiene que poder fichar **sin
+poder salir de la pantalla de fichar**. Hay dos niveles; empieza por el primero.
 
-Esto es una decisión de diseño, no una casualidad. La aplicación **no usa memoria del
-navegador, ni guarda la lista de nombres, ni los PIN, ni sesiones** en la tablet. La lista
-se pide al servidor cada vez y vive sólo mientras la pantalla está encendida.
+### Nivel 1 — Fijar la aplicación (2 minutos, gratis, es lo que necesitas)
 
-Traducido: si mañana pierdes el iPad o te lo roban, **quien lo abra no encuentra ni un
-fichaje ni un nombre**. Como mucho, la página de "toca tu nombre" — y sin PIN no pasa de ahí.
-Todo lo demás está en el servidor.
+Android deja "clavar" una aplicación en pantalla: el botón de inicio, el de atrás y el de
+recientes dejan de funcionar hasta que metas tu PIN.
 
-### Segundo: dejar el iPad clavado en la aplicación
+**Preparar, una sola vez:**
 
-Se llama **Acceso Guiado** y ya viene en el iPad. No hace falta comprar nada ni borrar el
-aparato:
+1. **Ajustes → Seguridad y privacidad → Más ajustes de seguridad → Fijar apps.**
+   (en algunas versiones se llama *Anclar ventanas* o *Fijar ventanas*)
+2. Actívalo, y dentro activa también **"Pedir PIN antes de dejar de fijar"** — esto es lo
+   importante: sin esa opción, cualquiera la suelta con dos toques.
+3. Asegúrate de que la tablet tiene **PIN o patrón de desbloqueo** (Ajustes → Pantalla de
+   bloqueo). Sin eso, lo anterior no sirve de nada.
 
-1. **Ajustes → Accesibilidad → Acceso Guiado** → actívalo.
-2. Dentro, **Ajustes de código → Definir código de Acceso Guiado**. Pon uno que sólo sepas
-   tú. En esa misma pantalla puedes activar **Touch ID**, y entonces sales con tu huella:
-   éste sí es un buen uso de la huella del iPad (ver §2).
-3. Abre Safari, entra en la dirección del fichaje y añádela a la pantalla de inicio
-   (**Compartir → Añadir a pantalla de inicio**). Así se abre a pantalla completa, sin la
-   barra de Safari.
-4. Abre esa aplicación y pulsa **tres veces seguidas** el botón de inicio (o el botón
-   superior en los iPad sin botón de inicio) → **Iniciar**.
+**Poner la aplicación de fichar en la pantalla de inicio:**
 
-A partir de ahí el iPad **no sale de esa pantalla**: ni se va al escritorio, ni cambia de
-aplicación, ni se ve una notificación. Para salir: tres pulsaciones + tu código (o tu huella).
+4. Abre **Chrome** y entra en la dirección del fichaje.
+5. Menú **⋮ → Añadir a pantalla de inicio** (o "Instalar aplicación"). Así se abre a pantalla
+   completa, sin la barra de direcciones ni las pestañas de Chrome.
+
+**Fijarla, cada mañana o después de cada reinicio:**
+
+6. Abre esa aplicación.
+7. Pulsa **Recientes** (el botón de la izquierda, o desliza desde abajo y mantén si usas gestos).
+8. Toca el **icono de la aplicación**, arriba de la tarjeta → **Fijar esta aplicación**.
+
+Ya está: la tablet no sale de ahí. **Para salir:** mantén pulsados **Atrás + Recientes** a la
+vez (con gestos: desliza hacia arriba y mantén) y te pedirá el PIN de desbloqueo.
 
 Dos avisos honestos:
 
-- Tras apagar y encender el iPad, **comprueba que vuelve solo al Acceso Guiado**. Si no
-  vuelve, se reactiva en diez segundos con los pasos 4. Merece la pena comprobarlo una vez.
-- Si algún día el iPad se va a usar para otra cosa a la vez, esto es exactamente lo que
-  querías: sales con el código, haces lo tuyo, y vuelves a iniciarlo.
+- **Al reiniciar la tablet, la fijación se pierde.** Hay que repetir los pasos 6-8. Son diez
+  segundos, pero conviene saberlo: si un día alguien la reinicia, revísala.
+- La aplicación de fichar **no guarda nada en la tablet** (ni nombres, ni PIN, ni fichajes),
+  así que aunque alguien la suelte, por ahí no se llega a ningún dato.
 
-**Si el iPad va a ser SÓLO para fichar**, existe algo más férreo: el *modo de aplicación
-única*, que se configura con Apple Configurator desde un Mac y aguanta reinicios sin
-intervención. Obliga a borrar y reconfigurar el iPad. Para un taller, el Acceso Guiado
-sobra; esto queda apuntado por si algún día lo quieres.
+### Nivel 2 — Un usuario aparte (si lo interno es serio)
 
-### Tercero: repasar el propio iPad
+Si lo que hay en la tablet no puede verlo nadie bajo ningún concepto, Android tiene usuarios
+separados, como en un ordenador: **Ajustes → Cuentas y copia de seguridad → Usuarios**
+(o busca "Usuarios" en Ajustes) → **Añadir usuario**.
 
-Media hora, una vez, y te quitas el problema de encima:
+Creas un usuario "Taller — fichaje" que **sólo** tiene Chrome y el acceso al fichaje. Ese
+usuario **no ve** tus aplicaciones, ni tus archivos, ni tus fotos, ni tu correo: no es que
+estén escondidos, es que para ese usuario no existen. Dejas la tablet encendida en ese
+usuario, y para volver al tuyo hace falta tu PIN o tu huella.
 
-- **Sin cuenta de iCloud** o con una cuenta creada sólo para esto. Nada de tu Apple ID
-  personal ni el de la empresa con el correo dentro.
-- **Sin Mail, sin Fotos, sin WhatsApp, sin archivos.** Si no está, no se puede filtrar.
-- **Código de desbloqueo** en el iPad (Ajustes → Touch ID y código) y bloqueo automático.
-- **Siri desactivada** y **avisos sin vista previa** en la pantalla bloqueada.
-- En **Safari**: autorrelleno desactivado y sin contraseñas guardadas.
-- **AirDrop** en "Desactivado".
+Es media hora de faena y es la separación de verdad. Si el nivel 1 te vale, no lo necesitas.
 
-Con esto, la respuesta a tu pregunta es: **el iPad no llega a contener ningún dato
-sensible**, ni siquiera los fichajes.
+### Nivel 3 — Modo quiosco de Samsung (Knox)
+
+Existe, es lo que usan las empresas con cientos de tablets, aguanta reinicios solo y se
+gestiona a distancia. Para un taller con una tablet es pasarse de largo, y encima se paga.
+Queda apuntado por si algún día tienes cinco.
+
+### Cuatro ajustes más que valen la pena
+
+- **Que no se apague la pantalla**: Ajustes → Pantalla → Apagado de pantalla → el máximo.
+  (colgada y enchufada, mejor que esté siempre despierta)
+- **Avisos sin contenido en la pantalla de bloqueo**: Ajustes → Notificaciones → Pantalla de
+  bloqueo → Ocultar contenido. Que no se lea un WhatsApp desde la pared.
+- **La Tab Active5 puede funcionar enchufada sin batería** (mira en Ajustes → si aparece
+  *Modo sin batería* / *No battery mode*). Si lo tiene, para una tablet que va a estar
+  colgada y enchufada para siempre es justo lo que quieres: la batería no se hincha.
+- Es 5G: mientras el servidor esté en el ordenador del taller, **la tablet tiene que estar en
+  el wifi del taller**, no en datos móviles, o no llegará al servidor.
 
 ---
 
 ## 2. Que no se fichen unos a otros
 
-### La huella del iPad no sirve para esto (y conviene saber por qué)
+### La huella de la tablet no sirve para esto
 
-Es la respuesta que menos gusta, pero es la correcta.
+La Tab Active5 lee la huella en el botón de encendido, y es muy buena para desbloquear la
+tablet. Pero para esto no vale, y la razón es de fondo, no de Samsung:
 
-El Touch ID del iPad contesta a una sola pregunta: *"¿este dedo es uno de los que están
-registrados en este iPad?"*. **Nunca dice de quién es el dedo.** Se pueden registrar hasta
-cinco huellas, y el sistema no distingue entre ellas: si registras a cinco trabajadores,
-cualquiera de los cinco desbloquea cualquier cosa y la tablet no sabe cuál ha sido. Para
-identificar a quién ficha, es literalmente inútil.
+El lector contesta a **una sola pregunta**: *"¿este dedo es uno de los registrados en esta
+tablet?"*. **Nunca dice de quién es el dedo.** Puedes registrar varias huellas y el sistema
+no distingue entre ellas: si registras a Salvador, a Aziz y a Paco, cualquiera de los tres
+abre lo de cualquiera y la tablet no sabe cuál ha sido. Para saber *quién* ficha es
+literalmente inútil, y eso no lo arregla ningún programa: es así como funciona Android (y
+el iPhone igual).
 
-Y hay una segunda razón, más seria: registrar las huellas de la plantilla **para controlar
-la presencia** es tratar datos biométricos. La AEPD publicó en noviembre de 2023 una guía
-sobre control de presencia con biometría que, en la práctica, cierra esa puerta para el
-control horario: se considera desproporcionado salvo casos muy justificados. Un taller de
-ocho personas no es ese caso. Esto lo debe confirmar la gestoría, pero mi recomendación es
-clara: **la huella, para salir del Acceso Guiado y para nada más**.
+Y hay una segunda razón, más seria: registrar las huellas de la plantilla **para controlar la
+presencia** es tratar datos biométricos. La guía que publicó la AEPD en noviembre de 2023
+sobre control de presencia con biometría prácticamente cierra esa puerta para el control
+horario: se considera desproporcionado salvo casos muy justificados, y un taller de siete
+personas no es ese caso. Que lo confirme la gestoría, pero mi recomendación es clara.
+
+**Dónde sí es útil la huella:** para soltar la aplicación fijada y para entrar en tu usuario.
+Ahí es perfecta, porque la pregunta que contesta ("¿eres tú, el jefe?") sí es la correcta.
 
 ### Lo que sí funciona, por orden de eficacia real
 
-**1. El PIN — ya está puesto.** Cada trabajador tiene su PIN de cuatro cifras. No es una
-barrera criptográfica: es lo que convierte "le doy al nombre de Manolo" en un acto
-deliberado y consciente. Si alguien ficha por otro, ha tenido que pedirle el PIN. Eso deja
-de ser un descuido y pasa a ser un asunto disciplinario, y todo el mundo lo entiende.
-Además, cinco PIN fallidos seguidos bloquean a esa persona un minuto: se acabó el probar.
+**1. El PIN — ya está puesto.** Cada uno tiene el suyo, de cuatro cifras. No es una barrera
+criptográfica: es lo que convierte "le doy al nombre de Paco" en un acto deliberado que ha
+tenido que pasar por pedirle el PIN a Paco. Eso deja de ser un descuido y pasa a ser un
+asunto disciplinario, y todo el mundo lo entiende sin que haya que explicarlo. Además, cinco
+PIN fallidos seguidos bloquean a esa persona un minuto: se acabó el ir probando.
 
 **2. La lista a la vista — ya está puesta.** La pantalla enseña **quién ha fichado y a qué
-hora**, en verde. En un taller de ocho personas que se ven la cara todos los días, ése es el
-control antifraude que de verdad funciona: si Manolo aparece fichado a las 8:02 y entra por
-la puerta a las 9:15, lo ve todo el mundo, empezando por ti.
+hora**, en verde, todo el día. En un taller de siete personas que se ven la cara, ése es el
+control que de verdad funciona: si Paco aparece fichado a las 8:02 y entra por la puerta a
+las 9:15, lo ve todo el mundo, empezando por ti.
 
-**3. Dónde cuelgas la tablet.** A la entrada y **a la vista**, no en un rincón. Suena
-tonto y es probablemente la medida más eficaz de las tres.
+**3. Dónde cuelgas la tablet.** A la entrada y **a la vista**, no en un rincón. Suena tonto y
+probablemente es la medida más eficaz de las tres.
 
-**4. Sólo desde el wifi del taller — ya está puesto, apagado.** Si algún día publicas esto
-en internet para fichar desde el móvil, arrancar el servidor con `FICHALBA_RED` hace que sólo
-se pueda fichar desde la conexión del taller. Mientras el servidor esté sólo en la red
-local, no hace falta.
+**4. La foto del momento — NO está puesta, y creo que todavía no debes ponerla.** La cámara
+frontal saca una foto al fichar y se guarda con el fichaje. Acaba con cualquier discusión, y
+es un día de trabajo añadirla. Pero mete la aplicación en terreno de protección de datos (hay
+que informar por escrito) y cambia el ambiente del taller. **Guárdatela en la recámara:** si
+algún día hay una sospecha real, se activa en un día. Antes, no.
 
-**5. La foto del momento — NO está puesta, y creo que no debes ponerla todavía.** La cámara
-frontal saca una foto al fichar y se guarda junto al fichaje. Es la medida que de verdad
-acaba con cualquier discusión, y es un día de trabajo añadirla. Pero mete la aplicación en
-un terreno con papeleo de protección de datos (hay que informar por escrito) y cambia el
-ambiente del taller. Mi consejo: **guárdatela en la recámara**. Si algún día hay una
-sospecha real, se activa. Antes, no.
-
-### Lo que NO tiene arreglo técnico
+### Lo que no tiene arreglo técnico
 
 Que alguien fiche a su hora y se vaya a desayunar una hora. Eso no lo resuelve ningún
 programa: lo resuelve mirar. Conviene tenerlo claro para no gastar dinero persiguiéndolo.
@@ -121,7 +139,7 @@ programa: lo resuelve mirar. Conviene tenerlo claro para no gastar dinero persig
 
 | Lo que te preocupaba | Cómo queda |
 |---|---|
-| Datos sensibles en el iPad | Ninguno: la aplicación no guarda nada en la tablet |
-| Que salgan de la aplicación | Acceso Guiado con código (o tu huella) para salir |
-| Que se fichen unos a otros | PIN por persona + la lista a la vista de todos + bloqueo por intentos |
-| La huella para identificar | No sirve técnicamente y además es terreno minado de RGPD |
+| Que vean lo interno de la tablet | **Fijar apps** con PIN para soltarla; si es serio, un usuario aparte |
+| Datos del fichaje en la tablet | Ninguno: nombres, PIN y fichajes están en el servidor, no en ella |
+| Que se fichen unos a otros | PIN por persona + lista a la vista + bloqueo tras cinco fallos |
+| La huella para identificar | No sirve técnicamente, y además es terreno minado de RGPD |
