@@ -106,12 +106,20 @@ Con la aplicación fijada, el botón **Atrás** no saca de ella: **vuelve a la l
 Es lo único que puede significar ahí, y viene bien para cortar un fichaje a medias (alguien
 toca un nombre que no es el suyo y se arrepiente).
 
-> Esto costó un par de intentos. Chrome **se salta las entradas de historial que una página
-> crea sin que el usuario haya tocado nada** —lo llama *history manipulation intervention*—,
-> así que el primer arreglo no servía: Atrás cerraba la aplicación igual, y al estar anclada,
-> Android la dejaba congelada en su pantalla de arranque (el icono, sin nada más). Ahora las
-> entradas se reponen **después de cada toque en la pantalla**, que es cuando Chrome sí las
-> respeta.
+> **Si aun así se queda congelada con el icono:** gira la tablet. Se arregla al instante.
+> Es lo que hay que enseñarle a la gente mientras tanto.
+>
+> Esto costó varios intentos y conviene dejarlo escrito. Chrome **se salta las entradas de
+> historial que una página crea sin que el usuario haya tocado nada** —lo llama *history
+> manipulation intervention*—, así que capturar el botón Atrás desde la web no es fiable:
+> en esta tablet, Atrás cierra la aplicación igual, y al estar anclada, Android la deja
+> congelada en su pantalla de arranque. Se han probado tres cosas: reponer el historial al
+> arrancar (no vale), reponerlo tras cada toque (tampoco, en esta tablet), y un latido que
+> fuerza a la pantalla a redibujarse sola cada dos segundos.
+>
+> **Si el latido tampoco basta**, es que Android congela la página entera y ya no queda nada
+> que programar: la solución es un lanzador de quiosco (Fully Kiosk Browser y similares), que
+> bloquea el botón Atrás desde el sistema en vez de pelearse con el navegador.
 
 La pantalla verde de "fichado" también se quita tocándola, sin esperar los cuatro segundos.
 

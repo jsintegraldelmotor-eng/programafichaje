@@ -231,6 +231,10 @@ addEventListener('popstate', () => {
   entradasPuestas = Math.max(0, entradasPuestas - 1);
   volver();
   ponerHistorial();
+  // Si Atrás llega hasta aquí, lo más seguro para la pantalla es rehacerla
+  // entera: una recarga es el repintado más contundente que existe, y no se
+  // pierde nada porque los fichajes no viven en la página.
+  forzarRepintado();
 });
 
 /* Red de seguridad. Si el temporizador se pierde —Atrás, pantalla apagada,
@@ -238,15 +242,44 @@ addEventListener('popstate', () => {
    clavada en el check y ya no se podía fichar. Estas dos comprobaciones la
    devuelven a la lista aunque no quede ni un temporizador vivo. */
 setInterval(() => { if (volverEn && Date.now() >= volverEn) volver(); }, 1000);
-/* Girar la tablet arregla la pantalla congelada, y eso significa que lo que
-   falta no es la lógica sino un repintado: al girar, Android rehace la
-   ventana entera. Esto hace lo mismo a mano. */
+/* Girar la tablet arregla la pantalla congelada. Eso significa que a la página
+   no le falta lógica: le falta que alguien la obligue a dibujar otra vez.
+
+   Aquí va el empujón a mano, en dos intensidades. Se usa al volver al frente
+   y, sobre todo, en el latido de abajo. */
+
 function forzarRepintado() {
   const cuerpo = document.body;
   cuerpo.style.display = 'none';
   void cuerpo.offsetHeight;      // obliga al navegador a recalcularlo todo
   cuerpo.style.display = '';
 }
+
+/* EL LATIDO.
+
+   Cuando alguien le da a Atrás con la aplicación anclada, la pantalla se queda
+   congelada y ni el reloj avanza. Girar la tablet la arregla, así que esto
+   imita al giro sin esperar a ningún aviso del sistema: no hace falta que
+   Chrome nos diga nada, va solo.
+
+   Cada dos segundos se cambia la opacidad una milésima. No se ve, pero obliga
+   al sistema a dibujar un fotograma nuevo. Y cada veinte, un empujón más fuerte
+   que recalcula el diseño entero, que es lo más parecido a girarla.
+
+   Aviso honesto: esto sólo puede funcionar si la página sigue viva y lo único
+   parado es el dibujado. Si Android ha congelado la página del todo, este
+   latido tampoco se ejecuta y no hay nada que hacer desde aquí. */
+
+let latidos = 0;
+setInterval(() => {
+  if (document.hidden) return;
+  latidos++;
+  document.documentElement.style.opacity = latidos % 2 ? '0.999' : '';
+  if (latidos % 10 === 0) {
+    document.body.style.minHeight = latidos % 20 === 0 ? '100.01%' : '';
+    void document.body.offsetHeight;
+  }
+}, 2000);
 
 const alVolverAlFrente = () => {
   if (document.hidden) return;

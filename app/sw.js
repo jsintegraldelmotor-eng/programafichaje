@@ -1,7 +1,7 @@
 /* Guarda la aplicación dentro de la tablet: después de abrirla una vez,
    funciona para siempre aunque no haya wifi ni cobertura. */
 
-const VERSION = 'fichalba-v6';
+const VERSION = 'fichalba-v7';
 const FICHEROS = [
   './', 'index.html', 'estilos.css', 'manifest.webmanifest',
   'app.js', 'comun.js', 'jefe.js', 'logica.js', 'almacen.js', 'excel.js', 'hoja.js',
