@@ -5,26 +5,22 @@ nada, ni instalar programas.
 
 ---
 
-## Paso 1 — Poner la página en internet (una vez, 5 minutos)
+## Paso 1 — La página ya está en internet
 
-La aplicación es una página web. Necesita una dirección en internet **sólo para abrirla la
-primera vez en la tablet**: después se queda instalada dentro y ya funciona sola, incluso sin
-wifi. Esa dirección la da GitHub gratis:
+**Hecho.** La aplicación se publica sola cada vez que cambia algo de `app/`, y vive aquí:
 
-1. En el repositorio, **Settings → Pages**.
-2. En *Source*, elige **GitHub Actions**.
-3. Ya está. Cada vez que cambie algo de `app/`, se vuelve a publicar solo.
+### https://jsintegraldelmotor-eng.github.io/programafichaje/
 
-La dirección queda así:
-`https://jsintegraldelmotor-eng.github.io/programafichaje/`
+Necesita esa dirección **sólo para abrirla la primera vez en la tablet**: después se queda
+instalada dentro y funciona sola, incluso sin wifi.
 
-> **Antes de eso, el repositorio tiene que ser público** (GitHub sólo publica páginas gratis
-> desde repositorios públicos): **Settings → General → abajo del todo → Danger Zone →
-> Change visibility → Make public**.
+> El repositorio es público porque GitHub sólo publica páginas gratis desde repositorios
+> públicos. No hay riesgo: dentro no hay datos, ni PIN, ni fichajes, ni la dirección de tu
+> hoja de cálculo. Sólo el código, que es un teclado numérico y una lista. Todo lo que
+> identifica a tu taller se escribe en la tablet, nunca aquí.
 >
-> No hay riesgo: dentro no hay datos, ni PIN, ni fichajes, ni la dirección de tu hoja de
-> cálculo. Sólo el código, que es un teclado numérico y una lista. Todo lo que identifica a
-> tu taller se escribe en la tablet, nunca aquí.
+> Si algún día hay que volver a montarlo: el flujo `.github/workflows/publicar.yml` enciende
+> GitHub Pages él solo, no hay que tocar nada en los ajustes.
 
 ---
 

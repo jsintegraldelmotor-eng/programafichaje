@@ -13,11 +13,12 @@ vuelve sola a la lista. Quien ya fichó sale en verde con su hora, a la vista de
 |---|---|
 | ![teclado de PIN](docs/imagenes/tablet-pin.png) | ![confirmación en verde](docs/imagenes/tablet-ok.png) |
 
-## Cómo se pone en marcha
+## La aplicación, en marcha
 
-Todo está en **[docs/EMPEZAR.md](docs/EMPEZAR.md)**, y son tres pasos: publicar la página,
-abrirla en la tablet e instalarla, y dejar la tablet clavada en ella. Media hora larga
-contando el café.
+### https://jsintegraldelmotor-eng.github.io/programafichaje/
+
+Se publica sola con cada cambio de `app/`. Para dejarla montada en la tablet —instalarla,
+clavarla en pantalla y el primer día con la plantilla— sigue **[docs/EMPEZAR.md](docs/EMPEZAR.md)**.
 
 La primera vez que se abre pide los nombres y tu PIN de jefe, reparte un PIN a cada uno y te
 los enseña **una sola vez**. Eso es toda la instalación.
