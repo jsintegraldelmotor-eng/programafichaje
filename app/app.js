@@ -198,11 +198,16 @@ $('btn-admin').onclick = () => abrirJefe(volver);
 // Tocar la pantalla verde vuelve ya, sin esperar los cuatro segundos.
 $('pantalla-ok').onclick = volver;
 
-// El botón Atrás de la tablet NO saca de la aplicación ni la deja colgada:
-// vuelve a la lista, que es lo único sensato que puede significar aquí.
-history.pushState({ fichalba: true }, '');
+/* El botón Atrás de la tablet NO debe sacar de la aplicación: si sale, Android
+   la deja congelada en la pantalla de arranque (el icono) porque el anclaje le
+   impide irse de verdad. Se le pone historial de sobra por delante para que
+   Atrás siempre tenga a dónde ir, y se repone en cuanto se gasta una. */
+const ponerHistorial = (cuantas = 3) => {
+  for (let i = 0; i < cuantas; i++) history.pushState({ fichalba: true }, '');
+};
+ponerHistorial();
 addEventListener('popstate', () => {
-  history.pushState({ fichalba: true }, '');   // se repone la entrada
+  ponerHistorial(2);
   volver();
 });
 
@@ -211,12 +216,26 @@ addEventListener('popstate', () => {
    clavada en el check y ya no se podía fichar. Estas dos comprobaciones la
    devuelven a la lista aunque no quede ni un temporizador vivo. */
 setInterval(() => { if (volverEn && Date.now() >= volverEn) volver(); }, 1000);
+/* Girar la tablet arregla la pantalla congelada, y eso significa que lo que
+   falta no es la lógica sino un repintado: al girar, Android rehace la
+   ventana entera. Esto hace lo mismo a mano. */
+function forzarRepintado() {
+  const cuerpo = document.body;
+  cuerpo.style.display = 'none';
+  void cuerpo.offsetHeight;      // obliga al navegador a recalcularlo todo
+  cuerpo.style.display = '';
+}
+
 const alVolverAlFrente = () => {
-  if (!document.hidden && volverEn && Date.now() >= volverEn) volver();
+  if (document.hidden) return;
+  if (volverEn && Date.now() >= volverEn) volver();
+  ponerHistorial(1);             // por si Atrás gastó alguna estando fuera
+  forzarRepintado();
 };
 document.addEventListener('visibilitychange', alVolverAlFrente);
 addEventListener('pageshow', alVolverAlFrente);
 addEventListener('focus', alVolverAlFrente);
+addEventListener('resize', alVolverAlFrente);
 
 // Ni menú al mantener pulsado, ni zoom con dos dedos: es un quiosco.
 document.addEventListener('contextmenu', (e) => e.preventDefault());
