@@ -1,5 +1,6 @@
 # Publica la carpeta app/ como página web, para que la tablet la abra.
-# Hace falta activarlo una vez: Settings -> Pages -> Source: GitHub Actions.
+# Con `enablement: true` el propio flujo enciende GitHub Pages la primera vez,
+# así que no hay que tocar nada a mano en los ajustes del repositorio.
 
 name: Publicar la aplicación
 
@@ -27,6 +28,9 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
+        with:
+          # Enciende Pages si aún no lo estaba, en vez de fallar con "Not Found".
+          enablement: true
       - uses: actions/upload-pages-artifact@v3
         with:
           path: app
