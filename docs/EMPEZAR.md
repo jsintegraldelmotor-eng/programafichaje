@@ -47,12 +47,16 @@ En la **Galaxy Tab Active5**, conectada al wifi:
 
 Para que nadie salga de ahí a curiosear lo que tienes en la tablet:
 
-1. **Ajustes → Seguridad y privacidad → Más ajustes de seguridad → Fijar apps.** Actívalo, y
+1. **Ajustes → Pantalla → Barra de navegación → Botones.** La tablet viene con gestos y sin
+   esto no hay ningún botón de "Recientes" que pulsar. Aparecen tres botones abajo;
+   **Recientes es el de la izquierda, el de las tres rayas `|||`**.
+2. **Ajustes → Seguridad y privacidad → Más ajustes de seguridad → Fijar apps.** Actívalo, y
    dentro activa **"Pedir PIN antes de dejar de fijar"**.
-2. Abre la aplicación de fichar, pulsa **Recientes**, toca el **icono de la aplicación**
-   arriba de la tarjeta → **Fijar esta aplicación**.
+3. Abre la aplicación de fichar y pulsa **Recientes** (las tres rayas). Sale como una tarjeta.
+4. Toca el **icono redondo de la aplicación justo encima de la tarjeta** → **Fijar esta
+   aplicación**.
 
-Para salir: **Atrás + Recientes** a la vez, y te pide tu PIN de desbloqueo (o tu huella).
+Para salir: mantén **Recientes + Atrás** a la vez unos 3 segundos, y te pide tu PIN.
 
 Ojo: al **reiniciar** la tablet se suelta la fijación y hay que repetir el punto 2. Son diez
 segundos, pero conviene saberlo.

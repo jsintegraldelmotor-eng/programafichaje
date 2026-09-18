@@ -34,14 +34,41 @@ recientes dejan de funcionar hasta que metas tu PIN.
 5. Menú **⋮ → Añadir a pantalla de inicio** (o "Instalar aplicación"). Así se abre a pantalla
    completa, sin la barra de direcciones ni las pestañas de Chrome.
 
-**Fijarla, cada mañana o después de cada reinicio:**
+**Antes de nada: ¿tienes botones abajo o no?**
 
-6. Abre esa aplicación.
-7. Pulsa **Recientes** (el botón de la izquierda, o desliza desde abajo y mantén si usas gestos).
-8. Toca el **icono de la aplicación**, arriba de la tarjeta → **Fijar esta aplicación**.
+La Tab Active5 viene de fábrica con **gestos**, y entonces **no existe ningún botón de
+"Recientes"** que pulsar. Se ve una rayita fina abajo y nada más. Antes de seguir, pon los
+botones —hace esto mucho más fácil, y además te va a hacer falta para salir:
 
-Ya está: la tablet no sale de ahí. **Para salir:** mantén pulsados **Atrás + Recientes** a la
-vez (con gestos: desliza hacia arriba y mantén) y te pedirá el PIN de desbloqueo.
+**Ajustes → Pantalla → Barra de navegación → Botones.**
+
+Aparecen tres abajo. En Samsung el orden, de izquierda a derecha, es:
+
+```
+   |||              ⌂              <
+ Recientes        Inicio          Atrás
+```
+
+**Recientes es el de la izquierda, el de las tres rayas.** Ése es el que yo llamaba
+"Recientes".
+
+**Fijarla (y repetirlo después de cada reinicio):**
+
+6. Abre la aplicación de fichar.
+7. Pulsa **Recientes** (las tres rayas, abajo a la izquierda). Sale la aplicación como una
+   *tarjeta* en el centro.
+8. Toca el **icono redondo de la aplicación que hay justo encima de la tarjeta** (no la
+   tarjeta: el iconito de arriba). Se abre un menú pequeño.
+9. Elige **Fijar esta aplicación** (según la versión: *Anclar esta app* o un icono de
+   chincheta 📌).
+
+Ya está: la tablet no sale de ahí. **Para salir:** mantén pulsados **Recientes + Atrás** a la
+vez unos 3 segundos, y te pedirá el PIN de desbloqueo.
+
+> Si prefieres quedarte con los gestos: para abrir Recientes hay que **deslizar hacia arriba
+> desde el borde de abajo y NO soltar el dedo** — mantenerlo un instante hasta que aparezcan
+> las tarjetas. Si sueltas enseguida, te vas al escritorio y por eso parece que no hay nada.
+> Para soltar la aplicación fijada, desliza hacia arriba y mantén.
 
 Dos avisos honestos:
 
