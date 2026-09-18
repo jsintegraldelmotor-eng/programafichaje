@@ -66,6 +66,20 @@ están en **[TABLET.md](TABLET.md)**.
 
 ---
 
+## Las actualizaciones se ponen solas
+
+La aplicación vive dentro de la tablet, así que cuando yo publico un arreglo hay que ir a
+buscarlo. Lo hace ella: mira si hay versión nueva **al abrirse, cada vez que vuelve al
+frente y cada media hora**, y cuando la encuentra se recarga sola. Si en ese momento hay
+alguien marcando su PIN, espera a que la pantalla vuelva a la lista.
+
+**Los fichajes y los PIN no se tocan al actualizar:** se guardan aparte de la aplicación.
+
+Para saber qué versión tiene: **engranaje → tu PIN**, y abajo del todo pone
+`Fichaje del taller · v4`.
+
+---
+
 ## Paso 4 (opcional, pero merece la pena) — Que se escriba solo en una hoja
 
 Diez minutos, una vez, y a partir de ahí **cada fichaje aparece solo como una fila en una

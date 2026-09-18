@@ -14,6 +14,7 @@ let pin = '';
 let ocupado = false;
 let temporizador = null;
 let volverEn = 0;   // instante en el que toca volver a la lista (0 = ya estamos)
+let recargarAlVolver = false;   // hay versión nueva esperando a que nadie fiche
 
 /**
  * Programa la vuelta a la lista. Aparte del temporizador se apunta la HORA,
@@ -148,6 +149,8 @@ function volver() {
   pintarPuntos();
   pintarLista();
   mostrar('pantalla-lista');
+  // Si llegó una versión nueva mientras alguien fichaba, se coge ahora.
+  if (recargarAlVolver) location.reload();
 }
 
 // --------------------------------------------------------- primer arranque --
@@ -237,6 +240,36 @@ if (!leer().config.pinAdmin) {
 hoja.enviar(leer(), guardar);
 hoja.reintentarDeVezEnCuando(leer, guardar);
 
+// ------------------------------------------------- actualización sola ----
+/* La aplicación vive dentro de la tablet, así que una versión nueva no llega
+   sola: hay que ir a buscarla. Esto lo hace al abrir, al volver al frente y
+   cada media hora; cuando la encuentra, se recarga ella misma. Antes hacía
+   falta abrirla y cerrarla dos veces, y eso en una tablet colgada en la pared
+   significaba quedarse con una versión vieja para siempre. */
+
 if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('sw.js').catch(() => { /* la primera vez puede no haber red */ });
+  // Al arrancar, ¿ya había una versión mandando? Si no, es la primera
+  // instalación y no hay que recargar nada.
+  const yaHabiaVersion = Boolean(navigator.serviceWorker.controller);
+
+  navigator.serviceWorker
+    // updateViaCache 'none': sw.js se pide siempre a internet. Si no, GitHub
+    // lo deja guardado diez minutos y la actualización no se entera.
+    .register('sw.js', { updateViaCache: 'none' })
+    .then((registro) => {
+      const buscarVersionNueva = () => registro.update().catch(() => { /* sin red, ya volverá */ });
+      buscarVersionNueva();
+      setInterval(buscarVersionNueva, 30 * 60 * 1000);
+      document.addEventListener('visibilitychange', () => {
+        if (!document.hidden) buscarVersionNueva();
+      });
+    })
+    .catch(() => { /* la primera vez puede no haber red */ });
+
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (!yaHabiaVersion) return;
+    // Si hay alguien a media faena, se espera a que la pantalla vuelva a la lista.
+    if ($('pantalla-lista').classList.contains('oculto')) recargarAlVolver = true;
+    else location.reload();
+  });
 }

@@ -147,3 +147,28 @@ test('quien se da de baja sigue saliendo en el Excel de los meses que fichó', a
   assert.match(fila[0], /\(baja\)/);
   assert.equal(fila.at(-1), 1);
 });
+
+test('la versión de la aplicación y la del service worker no se van de la mano', async () => {
+  const { readFileSync } = await import('node:fs');
+  const sw = readFileSync(new URL('../app/sw.js', import.meta.url), 'utf8');
+  const version = readFileSync(new URL('../app/version.js', import.meta.url), 'utf8');
+
+  const enSw = sw.match(/fichalba-(v\d+)/)?.[1];
+  const enApp = version.match(/'(v\d+)'/)?.[1];
+
+  assert.ok(enSw, 'sw.js tiene que llevar su versión');
+  assert.equal(enApp, enSw,
+    'si no coinciden, la tablet enseñaría una versión y estaría ejecutando otra');
+});
+
+test('el service worker guarda todos los ficheros de la aplicación', async () => {
+  const { readFileSync, readdirSync } = await import('node:fs');
+  const sw = readFileSync(new URL('../app/sw.js', import.meta.url), 'utf8');
+  const carpeta = new URL('../app/', import.meta.url);
+
+  for (const fichero of readdirSync(carpeta).filter((f) => /\.(js|css|html|webmanifest)$/.test(f))) {
+    if (fichero === 'sw.js') continue;   // el propio service worker no se guarda a sí mismo
+    assert.ok(sw.includes(`'${fichero}'`),
+      `${fichero} falta en la lista del service worker: sin conexión no cargaría`);
+  }
+});

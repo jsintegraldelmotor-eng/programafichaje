@@ -6,6 +6,7 @@ import * as almacen from './almacen.js';
 import { libro } from './excel.js';
 import { $, escapar, mostrar, leer, guardar, enseñarPines } from './comun.js';
 import * as hoja from './hoja.js';
+import { VERSION } from './version.js';
 
 const TIPO_EXCEL = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 let volverAFichar = () => {};
@@ -31,6 +32,7 @@ export async function abrirJefe(alVolver) {
   pintarDia();
   pintarTrabajadores();
   pintarHoja();
+  $('version').textContent = VERSION;
   mostrar('pantalla-jefe');
 }
 
