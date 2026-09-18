@@ -106,6 +106,13 @@ Con la aplicación fijada, el botón **Atrás** no saca de ella: **vuelve a la l
 Es lo único que puede significar ahí, y viene bien para cortar un fichaje a medias (alguien
 toca un nombre que no es el suyo y se arrepiente).
 
+> Esto costó un par de intentos. Chrome **se salta las entradas de historial que una página
+> crea sin que el usuario haya tocado nada** —lo llama *history manipulation intervention*—,
+> así que el primer arreglo no servía: Atrás cerraba la aplicación igual, y al estar anclada,
+> Android la dejaba congelada en su pantalla de arranque (el icono, sin nada más). Ahora las
+> entradas se reponen **después de cada toque en la pantalla**, que es cuando Chrome sí las
+> respeta.
+
 La pantalla verde de "fichado" también se quita tocándola, sin esperar los cuatro segundos.
 
 ### Cuatro ajustes más que valen la pena

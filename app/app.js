@@ -198,17 +198,39 @@ $('btn-admin').onclick = () => abrirJefe(volver);
 // Tocar la pantalla verde vuelve ya, sin esperar los cuatro segundos.
 $('pantalla-ok').onclick = volver;
 
-/* El botón Atrás de la tablet NO debe sacar de la aplicación: si sale, Android
-   la deja congelada en la pantalla de arranque (el icono) porque el anclaje le
-   impide irse de verdad. Se le pone historial de sobra por delante para que
-   Atrás siempre tenga a dónde ir, y se repone en cuanto se gasta una. */
-const ponerHistorial = (cuantas = 3) => {
-  for (let i = 0; i < cuantas; i++) history.pushState({ fichalba: true }, '');
-};
-ponerHistorial();
+/* El botón Atrás NO debe sacar de la aplicación: si sale, el anclaje de Android
+   no la deja irse de verdad y se queda congelada en su pantalla de arranque
+   (el icono, sin nada más).
+
+   Para evitarlo se le pone historial por delante, pero hay un detalle que lo
+   cambia todo: Chrome SE SALTA las entradas de historial que una página crea
+   sin que el usuario haya tocado nada (lo llama "history manipulation
+   intervention"). Ponerlas al arrancar no sirve de nada — Atrás las ignora y
+   cierra la aplicación igual.
+
+   Por eso se reponen justo DESPUÉS DE CADA TOQUE en la pantalla: ahí Chrome sí
+   las respeta. Y como en esta aplicación no se hace nada sin tocar, el colchón
+   está siempre puesto cuando hace falta. */
+
+const COLCHON = 2;
+let entradasPuestas = 0;
+
+function ponerHistorial() {
+  while (entradasPuestas < COLCHON) {
+    history.pushState({ fichalba: true }, '');
+    entradasPuestas++;
+  }
+}
+
+// pointerdown y click: los dos dan "toque reciente del usuario" en Chrome.
+document.addEventListener('pointerdown', ponerHistorial, { capture: true });
+document.addEventListener('click', ponerHistorial, { capture: true });
+ponerHistorial();   // por si acaso, aunque hasta el primer toque no valga
+
 addEventListener('popstate', () => {
-  ponerHistorial(2);
+  entradasPuestas = Math.max(0, entradasPuestas - 1);
   volver();
+  ponerHistorial();
 });
 
 /* Red de seguridad. Si el temporizador se pierde —Atrás, pantalla apagada,
@@ -229,7 +251,7 @@ function forzarRepintado() {
 const alVolverAlFrente = () => {
   if (document.hidden) return;
   if (volverEn && Date.now() >= volverEn) volver();
-  ponerHistorial(1);             // por si Atrás gastó alguna estando fuera
+  ponerHistorial();              // por si Atrás gastó alguna estando fuera
   forzarRepintado();
 };
 document.addEventListener('visibilitychange', alVolverAlFrente);
