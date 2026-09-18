@@ -13,8 +13,20 @@ let elegido = null;
 let pin = '';
 let ocupado = false;
 let temporizador = null;
+let volverEn = 0;   // instante en el que toca volver a la lista (0 = ya estamos)
 
-const reprogramar = (fn, ms) => { clearTimeout(temporizador); temporizador = setTimeout(fn, ms); };
+/**
+ * Programa la vuelta a la lista. Aparte del temporizador se apunta la HORA,
+ * porque un temporizador se puede perder: Android congela la página cuando se
+ * apaga la pantalla o se va la aplicación a segundo plano, y entonces el aviso
+ * nunca llega y la pantalla se queda clavada. La red de seguridad de abajo mira
+ * esa hora y devuelve a la lista igualmente.
+ */
+function programarVuelta(ms) {
+  clearTimeout(temporizador);
+  volverEn = Date.now() + ms;
+  temporizador = setTimeout(volver, ms);
+}
 
 // ------------------------------------------------------------------ reloj --
 
@@ -60,7 +72,7 @@ function pedirPin(trabajador, horaPrevia) {
   $('pin-instruccion').textContent = horaPrevia ? `Ya fichaste a las ${horaPrevia}` : 'Marca tu PIN';
   pintarPuntos();
   mostrar('pantalla-pin');
-  reprogramar(volver, 30_000);
+  programarVuelta(30_000);
 }
 
 function pintarPuntos(mal = false) {
@@ -71,7 +83,7 @@ function pintarPuntos(mal = false) {
 
 function tecla(valor) {
   if (ocupado) return;
-  reprogramar(volver, 30_000);
+  programarVuelta(30_000);
   if (valor === 'cancelar') return volver();
   if (valor === 'borrar') { pin = pin.slice(0, -1); return pintarPuntos(); }
   if (pin.length >= 4) return;
@@ -116,7 +128,7 @@ function confirmar(nombre, hora, repetido) {
   $('ok-hora').textContent = hora;
   $('ok-nota').textContent = repetido ? 'Ya habías fichado hoy a esta hora' : '';
   mostrar('pantalla-ok');
-  reprogramar(volver, 4000);
+  programarVuelta(4000);
 }
 
 function saludo() {
@@ -131,6 +143,7 @@ function saludo() {
 
 function volver() {
   elegido = null; pin = ''; ocupado = false;
+  volverEn = 0;
   clearTimeout(temporizador);
   pintarPuntos();
   pintarLista();
@@ -178,6 +191,29 @@ $('teclado').addEventListener('click', (e) => {
 });
 $('btn-crear').onclick = crearTodo;
 $('btn-admin').onclick = () => abrirJefe(volver);
+
+// Tocar la pantalla verde vuelve ya, sin esperar los cuatro segundos.
+$('pantalla-ok').onclick = volver;
+
+// El botón Atrás de la tablet NO saca de la aplicación ni la deja colgada:
+// vuelve a la lista, que es lo único sensato que puede significar aquí.
+history.pushState({ fichalba: true }, '');
+addEventListener('popstate', () => {
+  history.pushState({ fichalba: true }, '');   // se repone la entrada
+  volver();
+});
+
+/* Red de seguridad. Si el temporizador se pierde —Atrás, pantalla apagada,
+   Android congelando la página en segundo plano— la aplicación se quedaba
+   clavada en el check y ya no se podía fichar. Estas dos comprobaciones la
+   devuelven a la lista aunque no quede ni un temporizador vivo. */
+setInterval(() => { if (volverEn && Date.now() >= volverEn) volver(); }, 1000);
+const alVolverAlFrente = () => {
+  if (!document.hidden && volverEn && Date.now() >= volverEn) volver();
+};
+document.addEventListener('visibilitychange', alVolverAlFrente);
+addEventListener('pageshow', alVolverAlFrente);
+addEventListener('focus', alVolverAlFrente);
 
 // Ni menú al mantener pulsado, ni zoom con dos dedos: es un quiosco.
 document.addEventListener('contextmenu', (e) => e.preventDefault());

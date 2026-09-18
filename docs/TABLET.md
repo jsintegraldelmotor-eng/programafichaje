@@ -100,6 +100,14 @@ Existe, es lo que usan las empresas con cientos de tablets, aguanta reinicios so
 gestiona a distancia. Para un taller con una tablet es pasarse de largo, y encima se paga.
 Queda apuntado por si algún día tienes cinco.
 
+### El botón Atrás
+
+Con la aplicación fijada, el botón **Atrás** no saca de ella: **vuelve a la lista de nombres**.
+Es lo único que puede significar ahí, y viene bien para cortar un fichaje a medias (alguien
+toca un nombre que no es el suyo y se arrepiente).
+
+La pantalla verde de "fichado" también se quita tocándola, sin esperar los cuatro segundos.
+
 ### Cuatro ajustes más que valen la pena
 
 - **Que no se apague la pantalla**: Ajustes → Pantalla → Apagado de pantalla → el máximo.
