@@ -1,6 +1,7 @@
 # De cero a fichar el lunes
 
-Tres pasos. No hace falta ningún ordenador encendido, ni pagar nada, ni instalar programas.
+Cuatro pasos, y el último es opcional. No hace falta ningún ordenador encendido, ni pagar
+nada, ni instalar programas.
 
 ---
 
@@ -17,17 +18,13 @@ wifi. Esa dirección la da GitHub gratis:
 La dirección queda así:
 `https://jsintegraldelmotor-eng.github.io/programafichaje/`
 
-> **Un aviso:** GitHub sólo publica páginas gratis desde repositorios **públicos**. Este está
-> en privado, así que tienes dos opciones:
+> **Antes de eso, el repositorio tiene que ser público** (GitHub sólo publica páginas gratis
+> desde repositorios públicos): **Settings → General → abajo del todo → Danger Zone →
+> Change visibility → Make public**.
 >
-> - **Ponerlo público** (Settings → General → abajo del todo → *Change visibility*). No hay
->   ningún riesgo: dentro no hay datos, ni PIN, ni nombres de nadie. Sólo el código, que es
->   un teclado numérico y una lista.
-> - **Dejarlo privado** y pagar GitHub Pro (unos 4 $/mes), que permite publicar desde
->   repositorios privados.
->
-> Si no te convence ninguna, dímelo: la página son ficheros sueltos y se puede subir a
-> cualquier otro sitio gratis.
+> No hay riesgo: dentro no hay datos, ni PIN, ni fichajes, ni la dirección de tu hoja de
+> cálculo. Sólo el código, que es un teclado numérico y una lista. Todo lo que identifica a
+> tu taller se escribe en la tablet, nunca aquí.
 
 ---
 
@@ -69,6 +66,16 @@ están en **[TABLET.md](TABLET.md)**.
 
 ---
 
+## Paso 4 (opcional, pero merece la pena) — Que se escriba solo en una hoja
+
+Diez minutos, una vez, y a partir de ahí **cada fichaje aparece solo como una fila en una
+hoja de Google**, que puedes abrir desde el móvil o desde el ordenador y que se descarga como
+Excel cuando quieras. Los pasos están en **[HOJA-DE-CALCULO.md](HOJA-DE-CALCULO.md)**.
+
+Con esto te ahorras acordarte de descargar nada: la hoja se va llenando sola.
+
+---
+
 ## El primer día con la gente
 
 Cinco minutos en el taller, todos juntos. Lo que funciona es decirlo entero y de una vez:
@@ -93,13 +100,13 @@ La primera semana, échale un ojo a media mañana: siempre hay alguien que se ol
 
 **Cada mañana**, diez segundos: mira la tablet al pasar. Los que faltan salen en gris.
 
-**Cada mes**, un minuto: engranaje → tu PIN → **Descargar ese mes**. El fichero se guarda en
-la tablet (Descargas) y desde ahí lo mandas a tu correo, a Drive o a la gestoría, como
-prefieras.
+**Si conectaste la hoja de Google** (paso 4): nada más. Se llena sola y ya está fuera de la
+tablet. Cuando la gestoría pida el mes, abres la hoja y **Archivo → Descargar → Excel**.
 
-Ese Excel es el registro. Guárdalo en algún sitio que no sea la tablet: es lo que te queda si
-un día la tablet se pierde, se rompe o alguien borra los datos de Chrome. No hace falta nada
-más complicado que eso.
+**Si no la conectaste**, una vez al mes: engranaje → tu PIN → **Descargar ese mes**. El
+fichero se guarda en la tablet (Descargas) y desde ahí lo mandas a tu correo o a Drive.
+Guárdalo en algún sitio que no sea la tablet: es lo que te queda si un día se pierde, se
+rompe, o alguien borra los datos de Chrome.
 
 ---
 

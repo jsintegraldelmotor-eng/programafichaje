@@ -5,6 +5,7 @@ import * as L from './logica.js';
 import * as almacen from './almacen.js';
 import { $, escapar, mostrar, leer, reemplazar, guardar, enseñarPines } from './comun.js';
 import { abrirJefe } from './jefe.js';
+import * as hoja from './hoja.js';
 
 const PLANTILLA_SUGERIDA = ['Salvador', 'Aziz', 'Zakaria', 'Silvinho', 'Israel', 'Paco'];
 
@@ -93,8 +94,11 @@ async function comprobar() {
   }
 
   L.limpiarFallos(trabajador);
-  const { hora, repetido } = L.fichar(estado, trabajador.id);
+  const { fichaje, hora, repetido } = L.fichar(estado, trabajador.id);
   guardar();
+  // El fichaje ya está a salvo en la tablet; lo de la hoja va aparte y si
+  // falla se reintenta solo. Fichar nunca se queda esperando a internet.
+  if (!repetido) hoja.apuntar(estado, hoja.accionFichaje(estado, fichaje, trabajador.nombre), guardar);
   confirmar(trabajador.nombre, hora, repetido);
 }
 
@@ -192,6 +196,10 @@ if (!leer().config.pinAdmin) {
 } else {
   volver();
 }
+
+// Por si quedó algo sin mandar a la hoja (se fue la luz, no había internet...).
+hoja.enviar(leer(), guardar);
+hoja.reintentarDeVezEnCuando(leer, guardar);
 
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker.register('sw.js').catch(() => { /* la primera vez puede no haber red */ });

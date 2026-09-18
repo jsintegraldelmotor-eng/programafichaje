@@ -38,18 +38,24 @@ Se entra con el engranaje de la esquina y tu PIN. Nadie más pasa de ahí.
 
 ## Dónde está la información
 
-Dentro de la tablet, y sale de ahí con el botón de Excel. Una página web no puede tener un
-fichero Excel abierto y escribir en él sola —eso no existe en Android—, así que los fichajes
-se van guardando dentro y el Excel te lo da cuando lo pidas, con todo lo que haya hasta ese
-momento. Dos hojas:
+Dentro de la tablet. Y de ahí sale de dos maneras:
+
+**1. Sola, a una hoja de Google** (opcional, recomendado). Si la conectas, cada fichaje
+**aparece como una fila nueva en tu hoja de cálculo, en el momento**, sin tocar nada. La
+abres desde el móvil y ves el día según pasa. Si se va internet, los fichajes se quedan en
+cola en la tablet y suben solos cuando vuelve. Se monta en diez minutos, una vez:
+**[docs/HOJA-DE-CALCULO.md](docs/HOJA-DE-CALCULO.md)**.
+
+**2. Con el botón de Excel**, cuando lo pidas. Dos hojas:
 
 - **El mes de un vistazo**: una fila por trabajador, una columna por día, y en cada casilla
   la hora a la que entró.
 - **Los fichajes uno a uno**: fecha, día de la semana, hora, quién, y si alguno se anuló,
   con su motivo.
 
-**Descárgalo de vez en cuando y guárdalo** (Drive, el correo, un pendrive). Ese fichero es el
-registro que pide la ley, y es lo que te queda si un día la tablet se pierde o se borra.
+**Si no conectas la hoja de Google, descárgate ese Excel de vez en cuando y guárdalo** (Drive,
+el correo, un pendrive): es lo que te queda si un día la tablet se pierde o se borra. Con la
+hoja conectada, eso ya lo tienes resuelto solo.
 
 ## Las tres cosas que no se negocian
 
@@ -63,11 +69,11 @@ registro que pide la ley, y es lo que te queda si un día la tablet se pierde o 
 ## Para quien toque el código
 
 ```bash
-npm test          # 18 pruebas de lo que no puede fallar
+npm test          # 27 pruebas de lo que no puede fallar
 npm run app       # abre app/ en http://localhost:4200 para probarla en el ordenador
 ```
 
-Sin dependencias: la aplicación son ocho ficheros de JavaScript, HTML y CSS. El `.xlsx` se
+Sin dependencias: la aplicación son nueve ficheros de JavaScript, HTML y CSS. El `.xlsx` se
 genera dentro del navegador escribiendo el ZIP a mano, y las reglas del fichaje viven en
 `app/logica.js` como funciones puras, que es lo que prueba `npm test`.
 
@@ -82,6 +88,7 @@ genera dentro del navegador escribiendo el ZIP a mano, y las reglas del fichaje 
 | Documento | Qué contiene |
 |---|---|
 | [`docs/EMPEZAR.md`](docs/EMPEZAR.md) | **Empieza por aquí**: publicar, instalar en la tablet y el primer día con la gente |
+| [`docs/HOJA-DE-CALCULO.md`](docs/HOJA-DE-CALCULO.md) | Que los fichajes **se escriban solos** en una hoja de Google |
 | [`docs/TABLET.md`](docs/TABLET.md) | La **Galaxy Tab Active5**: dejarla clavada en el fichaje y por qué la huella no sirve para identificar a nadie |
 | [`docs/PROYECTO-FICHAJES.md`](docs/PROYECTO-FICHAJES.md) | El planteamiento: legalidad, RGPD, fases |
 | [`docs/FASE-0-GESTORIA.md`](docs/FASE-0-GESTORIA.md) | Lo que hay que preguntar a la gestoría |
@@ -99,5 +106,6 @@ acostumbre a tocar su nombre al entrar.
 - [x] Añadir gente, renombrar, PIN nuevo, dar de baja
 - [x] Descargar el mes (o todo) en Excel
 - [x] Funciona sin wifi y sin cobertura
+- [x] Escribir cada fichaje solo en una hoja de Google, con cola si se cae la red
 - [ ] Fichar la salida ← lo siguiente, cuando lo pidas
 - [ ] Los tres papeles de RGPD (con la gestoría)

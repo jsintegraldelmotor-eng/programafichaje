@@ -8,7 +8,16 @@ const CASTIGO_MS = 60_000;
 
 export const estadoVacio = () => ({
   version: 1,
-  config: { zona: ZONA, pinAdmin: null, ultimaCopiaUtc: null },
+  config: {
+    zona: ZONA,
+    pinAdmin: null,
+    hojaUrl: null,
+    hojaClave: null,
+    // Identifica a ESTA instalación. Va en la referencia de cada fila de la
+    // hoja, para que si algún día se reinstala la aplicación (y los números
+    // vuelven a empezar por 1) la hoja no confunda los nuevos con los viejos.
+    tabletaId: idAlAzar(),
+  },
   siguienteId: 1,
   trabajadores: [],
   fichajes: [],
@@ -36,6 +45,9 @@ export function local(instante = new Date(), zona = ZONA) {
 export const diaSemana = (fecha) => new Date(fecha + 'T12:00:00Z').getUTCDay();
 
 export const dos = (n) => String(n).padStart(2, '0');
+
+const idAlAzar = () =>
+  [...crypto.getRandomValues(new Uint8Array(3))].map((n) => n.toString(16).padStart(2, '0')).join('');
 
 // ------------------------------------------------------------------- PIN ---
 // PBKDF2 con el crypto del propio navegador. Del PIN sólo se guarda su huella:

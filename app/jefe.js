@@ -5,6 +5,7 @@ import * as L from './logica.js';
 import * as almacen from './almacen.js';
 import { libro } from './excel.js';
 import { $, escapar, mostrar, leer, guardar, enseñarPines } from './comun.js';
+import * as hoja from './hoja.js';
 
 const TIPO_EXCEL = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet';
 let volverAFichar = () => {};
@@ -29,6 +30,7 @@ export async function abrirJefe(alVolver) {
   $('mes').value = hoy.slice(0, 7);
   pintarDia();
   pintarTrabajadores();
+  pintarHoja();
   mostrar('pantalla-jefe');
 }
 
@@ -64,8 +66,10 @@ function anular(f) {
                         'El fichaje no se borra: queda guardado junto al motivo.\n\n¿Motivo?');
   if (motivo == null) return;
   try {
-    L.anular(leer(), f.id, motivo);
+    const estado = leer();
+    L.anular(estado, f.id, motivo);
     guardar();
+    hoja.apuntar(estado, hoja.accionAnulacion(estado, f.id, motivo.trim()), guardar);
     pintarDia();
     aviso('Fichaje anulado');
   } catch (e) { aviso(e.message, true); }
@@ -143,6 +147,48 @@ function descargarTodo() {
   aviso('Excel descargado');
 }
 
+// ------------------------------------------------------- hoja de cálculo --
+
+function pintarHoja() {
+  const estado = leer();
+  $('hoja-url').value = estado.config.hojaUrl ?? '';
+  $('hoja-clave').value = estado.config.hojaClave ?? '';
+
+  const pendientes = hoja.sinEnviar(estado);
+  $('hoja-estado').textContent = !hoja.configurada(estado)
+    ? 'Sin conectar: los fichajes se guardan sólo en la tablet.'
+    : pendientes === 0
+      ? '✓ Conectada y al día.'
+      : `${pendientes} fichaje${pendientes === 1 ? '' : 's'} sin enviar a la hoja.`;
+  $('btn-hoja-enviar').classList.toggle('oculto', pendientes === 0);
+}
+
+async function guardarHoja() {
+  const estado = leer();
+  const url = $('hoja-url').value.trim();
+  const clave = $('hoja-clave').value.trim();
+
+  if (!url) {
+    estado.config.hojaUrl = null;
+    guardar(); pintarHoja();
+    return aviso('Hoja desconectada');
+  }
+  $('btn-hoja-guardar').disabled = true;
+  try {
+    await hoja.probar(url, clave);
+    estado.config.hojaUrl = url;
+    estado.config.hojaClave = clave;
+    guardar();
+    aviso('Hoja conectada');
+    await hoja.enviar(estado, guardar);
+  } catch (e) {
+    aviso('No se ha podido hablar con la hoja: ' + e.message, true);
+  } finally {
+    $('btn-hoja-guardar').disabled = false;
+    pintarHoja();
+  }
+}
+
 // ---------------------------------------------------------------- arranque --
 
 $('fecha-dia').onchange = pintarDia;
@@ -150,6 +196,13 @@ $('btn-excel').onclick = descargarMes;
 $('btn-excel-todo').onclick = descargarTodo;
 $('btn-alta').onclick = alta;
 $('btn-cerrar-jefe').onclick = () => volverAFichar();
+
+$('btn-hoja-guardar').onclick = guardarHoja;
+$('btn-hoja-enviar').onclick = async () => {
+  const { enviadas, error } = await hoja.enviar(leer(), guardar);
+  aviso(error ? 'Sigue sin poder enviarse: ' + error : `Enviados ${enviadas}`, Boolean(error));
+  pintarHoja();
+};
 
 $('btn-pin-jefe').onclick = async () => {
   const nuevo = $('pin-jefe-nuevo').value.trim();
