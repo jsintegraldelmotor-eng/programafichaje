@@ -89,10 +89,23 @@ En la tablet, para que nadie fiche ahí por costumbre, quita el icono de la pant
 
 Entonces los PIN no se pueden recuperar: de cada uno se guarda sólo una huella cifrada, a
 propósito, para que nadie pueda leerlos. Pero si los tienes apuntados en papel, **puedes
-volver a ponerlos tal cual**: en la pantalla del jefe, **Cambiar PIN** te deja escribir el que
-quieras en vez de inventar uno. Lo mismo al dar de alta a alguien.
+volver a ponerlos tal cual y de una sentada**.
 
-Tu contraseña de jefe se pone igual, escribiéndola, en *"Tu PIN de jefe"*.
+En la pantalla de primer arranque, escribe en cada línea **el nombre y su PIN detrás**:
+
+```
+Salvador 7391
+Aziz 1087
+Zakaria 2244
+Israel
+```
+
+Vale con espacio, coma o guion. **Al que no le pongas PIN, se le inventa uno** (arriba,
+Israel). Tu contraseña de jefe la escribes debajo, como siempre. Con eso queda todo el taller
+montado igual que estaba, de una vez.
+
+Si la instalación ya está hecha y sólo quieres corregir a uno: pantalla del jefe →
+**Cambiar PIN** → te deja escribir el que quieras.
 
 ---
 

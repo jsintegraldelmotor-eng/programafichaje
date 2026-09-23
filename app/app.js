@@ -155,11 +155,25 @@ function volver() {
 
 // --------------------------------------------------------- primer arranque --
 
+/**
+ * Cada línea es "Nombre" o "Nombre 1234". Poder escribir el PIN detrás es lo
+ * que permite montar esto en otro aparato respetando los que la gente ya se
+ * sabe, sin ir cambiándolos uno a uno después.
+ */
+function leerLineas(texto) {
+  return texto.split('\n').map((linea) => linea.trim()).filter(Boolean).map((linea) => {
+    const conPin = linea.match(/^(.*?)[\s,;-]+(\d{4})$/);
+    return conPin
+      ? { nombre: conPin[1].trim(), pin: conPin[2] }
+      : { nombre: linea, pin: null };
+  }).filter((f) => f.nombre);
+}
+
 async function crearTodo() {
-  const nombres = $('nombres').value.split('\n').map((n) => n.trim()).filter(Boolean);
+  const lineas = leerLineas($('nombres').value);
   const pinJefe = $('pin-jefe').value.trim();
 
-  if (nombres.length === 0) return ($('error-config').textContent = 'Pon al menos un nombre.');
+  if (lineas.length === 0) return ($('error-config').textContent = 'Pon al menos un nombre.');
   if (!/^\d{4,8}$/.test(pinJefe)) return ($('error-config').textContent = 'Tu PIN son de 4 a 8 cifras.');
 
   $('btn-crear').disabled = true;
@@ -169,10 +183,10 @@ async function crearTodo() {
   const estado = L.estadoVacio();
   estado.config.pinAdmin = await L.hashPin(pinJefe);
 
-  const usados = new Set();
+  const usados = new Set(lineas.map((f) => f.pin).filter(Boolean));
   const creados = [];
-  for (const nombre of nombres) {
-    const suPin = L.pinAlAzar(usados);
+  for (const { nombre, pin } of lineas) {
+    const suPin = pin ?? L.pinAlAzar(usados);
     usados.add(suPin);
     L.altaTrabajador(estado, nombre, await L.hashPin(suPin));
     creados.push({ nombre, pin: suPin });
