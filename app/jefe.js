@@ -85,6 +85,23 @@ function boton(texto, alPulsar, clase = '') {
   return b;
 }
 
+/**
+ * Pide el PIN de alguien. Se puede escribir uno concreto —para respetar el que
+ * la persona ya tiene aprendido— o dejarlo vacío y que lo invente la aplicación.
+ * Devuelve null si se cancela.
+ */
+function pedirPin(nombre) {
+  const escrito = prompt(
+    `PIN de 4 cifras para ${nombre}.\n\n` +
+    `Si ya tenía uno y quieres mantenerlo, escríbelo.\n` +
+    `Si lo dejas vacío, la aplicación le pone uno nuevo al azar.`);
+  if (escrito === null) return null;
+  const limpio = escrito.trim();
+  if (limpio === '') return L.pinAlAzar();
+  if (!/^\d{4}$/.test(limpio)) throw new Error('El PIN son 4 cifras, nada más.');
+  return limpio;
+}
+
 function pintarTrabajadores() {
   const estado = leer();
   const cuerpo = $('tabla-trabajadores').querySelector('tbody');
@@ -103,13 +120,15 @@ function pintarTrabajadores() {
         t.nombre = nombre.trim();
         guardar(); pintarTrabajadores(); aviso('Renombrado');
       }),
-      boton('Nuevo PIN', async () => {
-        if (!confirm(`¿Darle un PIN nuevo a ${t.nombre}?`)) return;
-        const suPin = L.pinAlAzar();
-        t.pinHash = await L.hashPin(suPin);
-        L.limpiarFallos(t);
-        guardar();
-        enseñarPines([{ nombre: t.nombre, pin: suPin }], () => { pintarTrabajadores(); mostrar('pantalla-jefe'); });
+      boton('Cambiar PIN', async () => {
+        try {
+          const suPin = pedirPin(t.nombre);
+          if (suPin === null) return;
+          t.pinHash = await L.hashPin(suPin);
+          L.limpiarFallos(t);
+          guardar();
+          enseñarPines([{ nombre: t.nombre, pin: suPin }], () => { pintarTrabajadores(); mostrar('pantalla-jefe'); });
+        } catch (e) { aviso(e.message, true); }
       }),
       boton(t.activo ? 'Dar de baja' : 'Reingresar', () => {
         if (t.activo && !confirm(`¿Quitar a ${t.nombre} de la tablet?\n\nSus fichajes se conservan.`)) return;
@@ -124,12 +143,15 @@ function pintarTrabajadores() {
 async function alta() {
   const nombre = $('nuevo-nombre').value.trim();
   if (!nombre) return aviso('Falta el nombre.', true);
-  const suPin = L.pinAlAzar();
-  L.altaTrabajador(leer(), nombre, await L.hashPin(suPin));
-  guardar();
-  $('nuevo-nombre').value = '';
-  pintarTrabajadores();
-  enseñarPines([{ nombre, pin: suPin }], () => mostrar('pantalla-jefe'));
+  try {
+    const suPin = pedirPin(nombre);
+    if (suPin === null) return;
+    L.altaTrabajador(leer(), nombre, await L.hashPin(suPin));
+    guardar();
+    $('nuevo-nombre').value = '';
+    pintarTrabajadores();
+    enseñarPines([{ nombre, pin: suPin }], () => mostrar('pantalla-jefe'));
+  } catch (e) { aviso(e.message, true); }
 }
 
 // ------------------------------------------------------------------- Excel --

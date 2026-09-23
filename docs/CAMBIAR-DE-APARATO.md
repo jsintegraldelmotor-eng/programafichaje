@@ -47,7 +47,9 @@ No hace falta instalar nada más: ni Node, ni programas, ni permisos raros.
 
 ## 3. En el ordenador: traer los datos
 
-La aplicación arranca **vacía**, pidiéndote los nombres. **No los pongas.** Debajo del botón
+La aplicación arranca **vacía**, pidiéndote los nombres y una contraseña de jefe. Es normal:
+el ordenador todavía no sabe nada. **No rellenes nada de eso** — si lo haces, te crea una
+instalación nueva con PIN distintos, que es justo lo que no quieres. Debajo del botón
 verde hay una línea:
 
 > ¿Ya lo tenías funcionando en otro aparato?
@@ -80,6 +82,17 @@ En la tablet, para que nadie fiche ahí por costumbre, quita el icono de la pant
 > Por si acaso: al traer el fichero, el aparato nuevo se identifica con un número distinto del
 > viejo. Así, si alguien ficha en la tablet por error, su fila no pisa a las del ordenador en
 > la hoja de cálculo — aparecerán las dos y se ve lo que ha pasado.
+
+---
+
+## Si se ha perdido el fichero y la tablet ya no está
+
+Entonces los PIN no se pueden recuperar: de cada uno se guarda sólo una huella cifrada, a
+propósito, para que nadie pueda leerlos. Pero si los tienes apuntados en papel, **puedes
+volver a ponerlos tal cual**: en la pantalla del jefe, **Cambiar PIN** te deja escribir el que
+quieras en vez de inventar uno. Lo mismo al dar de alta a alguien.
+
+Tu contraseña de jefe se pone igual, escribiéndola, en *"Tu PIN de jefe"*.
 
 ---
 
