@@ -193,6 +193,23 @@ $('teclado').addEventListener('click', (e) => {
   if (boton) tecla(boton.dataset.t);
 });
 $('btn-crear').onclick = crearTodo;
+
+// Traer una instalación entera desde otro aparato (la tablet -> el ordenador).
+$('btn-traer').onclick = () => $('fichero-traspaso').click();
+$('fichero-traspaso').onchange = async (evento) => {
+  const fichero = evento.target.files?.[0];
+  evento.target.value = '';           // para poder reintentar con el mismo
+  if (!fichero) return;
+  try {
+    reemplazar(almacen.leerTraspaso(await fichero.text(), L.idAparato()));
+    guardar();
+    almacen.pedirPersistencia();
+    $('error-config').textContent = '';
+    volver();
+  } catch (error) {
+    $('error-config').textContent = error.message;
+  }
+};
 $('btn-admin').onclick = () => abrirJefe(volver);
 
 // Tocar la pantalla verde vuelve ya, sin esperar los cuatro segundos.

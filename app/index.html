@@ -30,6 +30,12 @@
 
     <p id="error-config" class="error"></p>
     <button id="btn-crear" class="principal grande">Crear</button>
+
+    <p class="tenue" style="text-align:center;margin-top:22px">
+      ¿Ya lo tenías funcionando en otro aparato?<br>
+      <button id="btn-traer" class="boton-enlace">Traer sus datos desde un fichero</button>
+    </p>
+    <input type="file" id="fichero-traspaso" accept=".json,application/json" hidden>
   </div>
 </section>
 
@@ -140,6 +146,22 @@
       <p class="tenue">
         Si la conectas, cada fichaje aparece solo en la hoja, en el momento. Sin internet
         se queda en cola y se envía cuando vuelva. Cómo montarla: docs/HOJA-DE-CALCULO.md
+      </p>
+    </section>
+
+    <section class="bloque">
+      <h2>Pasar a otro aparato</h2>
+      <p class="tenue">
+        Saca un fichero con <strong>todo</strong>: los nombres, los PIN, los fichajes y la hoja
+        de cálculo. En el aparato nuevo se abre la aplicación y se elige
+        <em>"Traer sus datos desde un fichero"</em>. Sigue donde lo dejaste.
+      </p>
+      <div class="fila">
+        <button id="btn-traspaso" class="principal">Descargar el fichero</button>
+      </div>
+      <p class="tenue">
+        ⚠️ Ese fichero lleva los PIN de todo el mundo: guárdalo como guardarías las llaves del
+        taller, y bórralo cuando el aparato nuevo ya funcione.
       </p>
     </section>
 

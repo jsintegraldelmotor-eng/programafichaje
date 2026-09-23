@@ -76,7 +76,10 @@ alguien marcando su PIN, espera a que la pantalla vuelva a la lista.
 **Los fichajes y los PIN no se tocan al actualizar:** se guardan aparte de la aplicación.
 
 Para saber qué versión tiene: **engranaje → tu PIN**, y abajo del todo pone
-`Fichaje del taller · v4`.
+`Fichaje del taller · v8`.
+
+**¿Cambias de aparato?** De la tablet a un ordenador, o al revés, sin perder nada:
+**[CAMBIAR-DE-APARATO.md](CAMBIAR-DE-APARATO.md)**.
 
 ---
 

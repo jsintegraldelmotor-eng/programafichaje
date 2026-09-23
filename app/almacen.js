@@ -49,3 +49,41 @@ export function descargar(nombre, datos, tipo) {
   enlace.remove();
   setTimeout(() => URL.revokeObjectURL(url), 10_000);
 }
+
+// ----------------------------------------------- pasar a otro aparato ---
+
+/* Todo vive dentro del aparato, así que mudarse a otro (de la tablet al
+   ordenador, por ejemplo) es sacar un fichero de uno y meterlo en el otro.
+   Se lleva los nombres, los PIN, los fichajes y la hoja de cálculo. */
+
+export const nombreDelTraspaso = () =>
+  `fichalba_traspaso_${new Date().toISOString().slice(0, 10)}.json`;
+
+export const prepararTraspaso = (estado) => JSON.stringify(estado, null, 1);
+
+/**
+ * Lee el fichero del otro aparato. Comprueba que es lo que dice ser y le da
+ * un identificador de aparato NUEVO: así, si el viejo se quedara encendido y
+ * fichara alguien, las filas de los dos no se pisarían en la hoja de cálculo.
+ * Lo que ya estuviera en cola conserva su referencia de origen, para que no
+ * se duplique nada de lo que ya se mandó.
+ */
+export function leerTraspaso(texto, nuevoId) {
+  let estado;
+  try {
+    estado = JSON.parse(texto);
+  } catch {
+    throw new Error('Ese fichero no es un traspaso de fichalba.');
+  }
+  if (!estado || typeof estado !== 'object') throw new Error('Ese fichero no es un traspaso de fichalba.');
+  for (const campo of ['trabajadores', 'fichajes', 'anulaciones']) {
+    if (!Array.isArray(estado[campo])) throw new Error('Ese fichero no es un traspaso de fichalba.');
+  }
+  if (!estado.config?.pinAdmin) throw new Error('Ese fichero no trae el PIN de jefe: está incompleto.');
+
+  estado.config.tabletaId = nuevoId;
+  estado.pendientes = Array.isArray(estado.pendientes) ? estado.pendientes : [];
+  estado.siguienteId = estado.siguienteId ?? Math.max(
+    0, ...estado.fichajes.map((f) => f.id), ...estado.trabajadores.map((t) => t.id)) + 1;
+  return estado;
+}

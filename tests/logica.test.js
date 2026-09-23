@@ -172,3 +172,42 @@ test('el service worker guarda todos los ficheros de la aplicación', async () =
       `${fichero} falta en la lista del service worker: sin conexión no cargaría`);
   }
 });
+
+test('el traspaso a otro aparato se lleva todo, con identificador nuevo', async () => {
+  const almacen = await import('../app/almacen.js');
+
+  const origen = await conGente('Salvador', 'Aziz');
+  origen.config.pinAdmin = await L.hashPin('4321');
+  origen.config.hojaUrl = 'https://ejemplo/script';
+  origen.config.hojaClave = 'taller';
+  const { fichaje } = L.fichar(origen, origen.trabajadores[0].id);
+  L.anular(origen, fichaje.id, 'se equivocó de nombre al tocar');
+  L.fichar(origen, origen.trabajadores[1].id);
+  origen.pendientes = [{ tipo: 'fichaje', ref: 'abc123-7', nombre: 'Aziz' }];
+
+  const destino = almacen.leerTraspaso(almacen.prepararTraspaso(origen), L.idAparato());
+
+  assert.deepEqual(destino.trabajadores.map((t) => t.nombre), ['Salvador', 'Aziz']);
+  assert.equal(destino.trabajadores[0].pinHash, origen.trabajadores[0].pinHash,
+    'los PIN tienen que seguir valiendo en el aparato nuevo');
+  assert.equal(destino.config.pinAdmin, origen.config.pinAdmin);
+  assert.equal(destino.config.hojaUrl, 'https://ejemplo/script', 'la hoja sigue conectada');
+  assert.equal(destino.fichajes.length, 2);
+  assert.equal(destino.anulaciones[0].motivo, 'se equivocó de nombre al tocar');
+  assert.equal(destino.siguienteId, origen.siguienteId, 'los números siguen donde estaban');
+
+  assert.notEqual(destino.config.tabletaId, origen.config.tabletaId,
+    'identificador nuevo: si el aparato viejo se quedara encendido, no se pisarían en la hoja');
+  assert.equal(destino.pendientes[0].ref, 'abc123-7',
+    'lo que estaba en cola conserva su referencia, para no duplicarlo en la hoja');
+});
+
+test('un fichero que no es un traspaso se rechaza con claridad', async () => {
+  const almacen = await import('../app/almacen.js');
+  const id = L.idAparato();
+
+  assert.throws(() => almacen.leerTraspaso('esto no es json', id), /no es un traspaso/);
+  assert.throws(() => almacen.leerTraspaso('{"hola":1}', id), /no es un traspaso/);
+  assert.throws(() => almacen.leerTraspaso(JSON.stringify(L.estadoVacio()), id),
+    /no trae el PIN de jefe/, 'una instalación sin configurar no sirve de traspaso');
+});

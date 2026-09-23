@@ -200,3 +200,9 @@ tr.inactivo td { opacity: .5; }
   margin-left: auto; background: none; border: none; cursor: pointer;
   color: #3d4a63; font-size: 1.4rem; padding: 8px 12px;
 }
+
+.boton-enlace {
+  background: none; border: none; padding: 4px 0; cursor: pointer;
+  font-family: inherit; font-size: 1rem;
+  color: var(--verde); text-decoration: underline;
+}

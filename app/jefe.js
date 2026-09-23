@@ -199,6 +199,11 @@ $('btn-excel-todo').onclick = descargarTodo;
 $('btn-alta').onclick = alta;
 $('btn-cerrar-jefe').onclick = () => volverAFichar();
 
+$('btn-traspaso').onclick = () => {
+  almacen.descargar(almacen.nombreDelTraspaso(), almacen.prepararTraspaso(leer()), 'application/json');
+  aviso('Fichero descargado. Ábrelo en el aparato nuevo.');
+};
+
 $('btn-hoja-guardar').onclick = guardarHoja;
 $('btn-hoja-enviar').onclick = async () => {
   const { enviadas, error } = await hoja.enviar(leer(), guardar);

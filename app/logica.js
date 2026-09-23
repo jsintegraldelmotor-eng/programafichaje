@@ -16,7 +16,7 @@ export const estadoVacio = () => ({
     // Identifica a ESTA instalación. Va en la referencia de cada fila de la
     // hoja, para que si algún día se reinstala la aplicación (y los números
     // vuelven a empezar por 1) la hoja no confunda los nuevos con los viejos.
-    tabletaId: idAlAzar(),
+    tabletaId: idAparato(),
   },
   siguienteId: 1,
   trabajadores: [],
@@ -46,7 +46,8 @@ export const diaSemana = (fecha) => new Date(fecha + 'T12:00:00Z').getUTCDay();
 
 export const dos = (n) => String(n).padStart(2, '0');
 
-const idAlAzar = () =>
+/** Identifica a UNA instalación. Cambia al traspasar a otro aparato. */
+export const idAparato = () =>
   [...crypto.getRandomValues(new Uint8Array(3))].map((n) => n.toString(16).padStart(2, '0')).join('');
 
 // ------------------------------------------------------------------- PIN ---

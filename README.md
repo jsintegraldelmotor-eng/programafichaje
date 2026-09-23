@@ -90,6 +90,7 @@ genera dentro del navegador escribiendo el ZIP a mano, y las reglas del fichaje 
 |---|---|
 | [`docs/EMPEZAR.md`](docs/EMPEZAR.md) | **Empieza por aquí**: publicar, instalar en la tablet y el primer día con la gente |
 | [`docs/HOJA-DE-CALCULO.md`](docs/HOJA-DE-CALCULO.md) | Que los fichajes **se escriban solos** en una hoja de Google |
+| [`docs/CAMBIAR-DE-APARATO.md`](docs/CAMBIAR-DE-APARATO.md) | **Pasar el fichaje de la tablet a un ordenador** (o al revés) sin perder nada |
 | [`docs/TABLET.md`](docs/TABLET.md) | La **Galaxy Tab Active5**: dejarla clavada en el fichaje y por qué la huella no sirve para identificar a nadie |
 | [`docs/PROYECTO-FICHAJES.md`](docs/PROYECTO-FICHAJES.md) | El planteamiento: legalidad, RGPD, fases |
 | [`docs/FASE-0-GESTORIA.md`](docs/FASE-0-GESTORIA.md) | Lo que hay que preguntar a la gestoría |
@@ -108,5 +109,6 @@ acostumbre a tocar su nombre al entrar.
 - [x] Descargar el mes (o todo) en Excel
 - [x] Funciona sin wifi y sin cobertura
 - [x] Escribir cada fichaje solo en una hoja de Google, con cola si se cae la red
+- [x] Pasar la instalación entera a otro aparato: nombres, PIN, fichajes y hoja
 - [ ] Fichar la salida ← lo siguiente, cuando lo pidas
 - [ ] Los tres papeles de RGPD (con la gestoría)
