@@ -14,8 +14,16 @@ Diez minutos. Hazlo con calma y **en este orden**.
 2. Baja hasta **"Pasar a otro aparato"** → **Descargar el fichero**.
 3. Se guarda un fichero llamado `fichalba_traspaso_2026-09-23.json` (con la fecha de hoy).
 
-Haz que llegue al aparato nuevo como te resulte más cómodo: mandártelo por correo, subirlo a
-Drive, o un pendrive.
+**¿Dónde se ha guardado?** En la tablet, en **Descargas**: abre la aplicación **Mis archivos**
+→ **Descargas**, y ahí está.
+
+**Para que llegue al ordenador**, cualquiera de éstas:
+
+- **Por correo:** mantén pulsado el fichero → **Compartir** → Gmail → envíatelo a ti mismo.
+  En el ordenador abres el correo y descargas el adjunto.
+- **Por Drive:** Compartir → Drive → subir. En el ordenador, drive.google.com → descargar.
+- **Por cable:** conecta la tablet al ordenador, en la tablet elige **Transferencia de
+  archivos**, y copia el fichero de la carpeta Descargas.
 
 > ⚠️ **Ese fichero lleva los PIN de todo el mundo.** No es para el grupo de WhatsApp del
 > taller: guárdalo como guardarías las llaves, y bórralo en cuanto el aparato nuevo funcione.
@@ -47,6 +55,10 @@ verde hay una línea:
 
 Púlsala, elige el fichero del paso 1, y ya está: salen los seis nombres, los que hubieran
 fichado hoy aparecen en verde, y todo lo de antes está donde estaba.
+
+> **¿Ya lo habías configurado a mano en el ordenador?** Entonces esa pantalla ya no sale, pero
+> no pasa nada: **engranaje → tu PIN → "Pasar a otro aparato" → Traer datos de otro aparato**.
+> Avisa de que sustituye todo lo que haya en el ordenador y te pide confirmación.
 
 **Compruébalo antes de dar el cambio por bueno:**
 

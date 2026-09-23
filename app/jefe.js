@@ -4,7 +4,7 @@
 import * as L from './logica.js';
 import * as almacen from './almacen.js';
 import { libro } from './excel.js';
-import { $, escapar, mostrar, leer, guardar, enseñarPines } from './comun.js';
+import { $, escapar, mostrar, leer, reemplazar, guardar, enseñarPines } from './comun.js';
 import * as hoja from './hoja.js';
 import { VERSION } from './version.js';
 
@@ -202,6 +202,33 @@ $('btn-cerrar-jefe').onclick = () => volverAFichar();
 $('btn-traspaso').onclick = () => {
   almacen.descargar(almacen.nombreDelTraspaso(), almacen.prepararTraspaso(leer()), 'application/json');
   aviso('Fichero descargado. Ábrelo en el aparato nuevo.');
+};
+
+/* Traer los datos también desde aquí, no sólo en la pantalla de primer
+   arranque: si alguien ya configuró el aparato nuevo a mano antes de traer el
+   fichero, aquella pantalla ya no vuelve a salir y se quedaría atascado. */
+$('btn-traer-jefe').onclick = () => $('fichero-traspaso-jefe').click();
+$('fichero-traspaso-jefe').onchange = async (evento) => {
+  const fichero = evento.target.files?.[0];
+  evento.target.value = '';
+  if (!fichero) return;
+
+  const estado = leer();
+  const aviso1 = `Esto SUSTITUYE todo lo que hay en este aparato:\n\n` +
+    `  · ${estado.trabajadores.length} trabajadores\n` +
+    `  · ${estado.fichajes.length} fichajes\n\n` +
+    `Se reemplazan por los del fichero. Lo de aquí no se podrá recuperar.\n\n¿Seguro?`;
+  if (!confirm(aviso1)) return;
+
+  try {
+    reemplazar(almacen.leerTraspaso(await fichero.text(), L.idAparato()));
+    guardar();
+    almacen.pedirPersistencia();
+    alert('Datos traídos. La aplicación se va a recargar.');
+    location.reload();
+  } catch (error) {
+    aviso(error.message, true);
+  }
 };
 
 $('btn-hoja-guardar').onclick = guardarHoja;
